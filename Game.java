@@ -24,7 +24,8 @@ import java.io.PrintStream;
 
 import java.io.FileNotFoundException;
 
-//Imported other files.
+//IMPORTED GAME ELEMENTS
+
 import elements.Adventure;
 import elements.Bestiary;
 import elements.Character;
@@ -35,7 +36,7 @@ public class Game extends Application {
     // GAME VARIABLES -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
     // GAME ELEMENTS
-    
+
     private Adventure adventure = new Adventure();
     private Passcode passcode = new Passcode();
     private Character character = new Character();
@@ -43,7 +44,7 @@ public class Game extends Application {
     private Bestiary.Enemy enemy;
 
     // VARIABLES FOR START MENU SCREEN
-    
+
     VBox menuLayout = new VBox();
     VBox menuBox = new VBox();
     HBox musicBox = new HBox();
@@ -101,16 +102,16 @@ public class Game extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("A Night In New Bellingham"); // program title
-        
         /*
         -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         STARTING BACKGROUND MUSIC
         -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         */
-        
+
         backgroundMusic(currentSong);
 
         // VOLUME SLIDER FOR MAIN MENU
+
         menuVolume = new Slider(0,1,0);
         menuVolume.setOrientation(Orientation.HORIZONTAL);
         menuVolume.setValue(100);
@@ -191,7 +192,7 @@ public class Game extends Application {
         plotLayout = new VBox();
         plotLayout.getChildren().addAll(plotScroll, start);
 
-        // STYING FOR PLOT
+        // STYLING FOR PLOT
 
         plotLayout.setAlignment(Pos.CENTER); // centers child elements
         plotLayout.setPadding(new Insets(5));
@@ -303,7 +304,9 @@ public class Game extends Application {
         reboot = new Button("REBOOT");
         gameOverLayout = new VBox();
         gameOverLayout.getChildren().addAll(gameOverScroll, reboot);
-        //STYING FOR GAME OVER
+
+        //STYLING FOR GAME OVER
+
         gameOverLayout.setAlignment(Pos.CENTER); // centers child elements
         gameOverLayout.setPadding(new Insets(5));
         gameOverLayout.setSpacing(15); // spacing between elements
