@@ -506,10 +506,12 @@ public class Game extends Application {
         else if(adventure.getSpecialEvent().equals("combat")) {
             combatView();
         }
-        if(!adventure.getSong().equals(currentSong) && adventure.getSong() != null) {
+        if(adventure.getSong() != null) {
+        if(!adventure.getSong().equals(currentSong)) {
         audioPlayer.stop();
         backgroundMusic(adventure.getSong());
         currentSong = adventure.getSong();
+        }
         }
         return;
         
