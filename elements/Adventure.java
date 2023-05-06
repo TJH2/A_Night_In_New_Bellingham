@@ -8,7 +8,6 @@ public class Adventure {
    private Path root; // root node
     
    public Adventure() {
-      
 
       /*Story template
        root = addPath(
