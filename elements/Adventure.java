@@ -21,7 +21,7 @@ public class Adventure {
          , // specialEvent
          , // success
          , // fail
-         "Elon_Musk_Hot_Dad.mp3" // song
+          // song
          );
          DEMO PATH --------------------------------------------------------------------------------------------------------------------------------------------------------------
          
@@ -38,7 +38,7 @@ public class Adventure {
          null, // specialEvent
          null, // success
          null, // fail
-         "Elon_Musk_Hot_Dad.mp3" // song
+          // song
          );
 
          root = addPath(
@@ -52,7 +52,7 @@ public class Adventure {
          null, // specialEvent
          null, // success
          null, // fail
-         "Elon_Musk_Hot_Dad.mp3" // song
+          // song
          );
 
           root = addPath(
@@ -65,7 +65,7 @@ public class Adventure {
          "passcode", // specialEvent
          null, // success
          null, // fail
-         "Elon_Musk_Hot_Dad.mp3" // song
+          // song
          );
 
          root = addPath(
@@ -78,7 +78,7 @@ public class Adventure {
          "combat", // specialEvent
          "You have defeated the Long Jack. You need to take a breather and figure out your next move.", // success
          "KILLED IN COMBAT BY LONG JACK", // fail
-         "Elon_Musk_Hot_Dad.mp3" // song
+          // song
          ); 
 
       */
