@@ -102,6 +102,9 @@ public class Game extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("A Night In New Bellingham"); // program title
+
+        adventure.changeEvent("start");  // FOR NEW GAME
+
         /*
         -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         STARTING BACKGROUND MUSIC
@@ -208,7 +211,7 @@ public class Game extends Application {
         
         // GAME LAYOUT ------------------------------------------------------------------------------------------------------------------------------------------------------------
        
-        imageView.setImage(new Image("resources/images/" + adventure.getEvent() + ".jpg"));
+        imageView.setImage(new Image("resources/images/" + adventure.getImage() + ".jpg"));
         //setting the fit height and width of the image view 
         imageView.setFitWidth(400);
         imageView.setFitHeight(400);  
@@ -321,7 +324,7 @@ public class Game extends Application {
          SET STAGE
         --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         */
-        
+
         stage.setScene(startGame);
         stage.setResizable(false);
         stage.show();
@@ -337,7 +340,8 @@ public class Game extends Application {
         
         // NEW GAME
 
-        newGame.setOnAction(e -> { stage.setScene(gamePlot); });
+        newGame.setOnAction(e -> {
+            stage.setScene(gamePlot); });
 
         // CONTINUE
 
@@ -362,24 +366,22 @@ public class Game extends Application {
         // OPTION 1
 
         option1.setOnAction( e -> {
-            if(adventure.getSpecialEvent() == null) {
                 if(adventure.getLeft() != null) {
-                    adventure.goLeft();
+                    adventure.changeEvent(adventure.getLeft());
                     refresh(); 
                 }
                 else {
                     System.out.println("DEAD END Left");
                 }
-            }
-            else { System.out.println("There is a special event") ;}    
-        });
+            }  
+        );
         
         
         // OPTION 2
 
         option2.setOnAction(e -> {
             if(adventure.getRight() != null) {
-                adventure.goRight();
+                adventure.changeEvent(adventure.getRight());
                 refresh(); 
             }
             else { System.out.println("DEAD END Right"); }
@@ -390,7 +392,7 @@ public class Game extends Application {
         saveGame.setOnAction(e -> {
             try { //overwrites current save file
                     PrintStream overwrite = new PrintStream(new File("src\\save.txt"));
-                    overwrite.print(adventure.getMarker());
+                    overwrite.print(adventure.getCEN());
             }
             catch(FileNotFoundException ex) {}
             });
@@ -399,8 +401,8 @@ public class Game extends Application {
         
         answer.setOnAction(e -> {
             // takes the path event and cross-references it with riddler to compare response to the answer
-            if(input.getText().equals(passcode.getAnswer(adventure.getEvent()))) {
-                if(adventure.getLeft() != null) { adventure.goLeft(); }
+            if(input.getText().equals(passcode.getAnswer(adventure.getCEN()))) {
+                if(adventure.getLeft() != null) { adventure.changeEvent(adventure.getLeft());}
                 refresh(); 
             }
             else { System.out.println("Wrong Answer"); }
@@ -590,7 +592,7 @@ public class Game extends Application {
     // METHOD FOR REFRESHING PAGE WITH NEW INFO
     
     public void refresh() {
-        imageView.setImage(new Image("resources/images/" + adventure.getEvent() + ".jpg"));
+        imageView.setImage(new Image("resources/images/" + adventure.getImage() + ".jpg"));
         storyText.setText(adventure.getStory());
         option1.setText(adventure.getOption1());
         option2.setText(adventure.getOption2());
@@ -638,7 +640,7 @@ public class Game extends Application {
     }
 
     public void combatView() {
-        enemy = bestiary.findEnemy(adventure.getEvent()); // resets value of beast
+        enemy = bestiary.findEnemy(adventure.getCEN()); // resets value of beast
         input.setVisible(false);
         input.setManaged(false);
         answer.setVisible(false);
@@ -669,8 +671,8 @@ public class Game extends Application {
         flee.setManaged(false);
         option1.setVisible(false);
         option1.setManaged(false);
-        option2.setVisible(false);
-        option2.setManaged(false);
+        option2.setVisible(true);
+        option2.setManaged(true);
         return;
     }
 
