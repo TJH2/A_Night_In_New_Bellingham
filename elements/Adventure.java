@@ -1,4 +1,5 @@
 package elements;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -19,7 +20,8 @@ public class Adventure {
          , //option 2
          , // specialEvent
          , // success
-          // fail
+         , // fail
+         "Elon_Musk_Hot_Dad.mp3" // song
          );
          DEMO PATH --------------------------------------------------------------------------------------------------------------------------------------------------------------
          
@@ -35,7 +37,8 @@ public class Adventure {
          "Not Interested [Leave The Store]", //option 2
          null, // specialEvent
          null, // success
-         null // fail
+         null, // fail
+         "Elon_Musk_Hot_Dad.mp3" // song
          );
 
          root = addPath(
@@ -48,7 +51,8 @@ public class Adventure {
          "Sorry, Not Interested [Leave The Store]", //option 2
          null, // specialEvent
          null, // success
-         null // fail
+         null, // fail
+         "Elon_Musk_Hot_Dad.mp3" // song
          );
 
           root = addPath(
@@ -60,7 +64,8 @@ public class Adventure {
          "Give Up", //option 2
          "passcode", // specialEvent
          null, // success
-         null // fail
+         null, // fail
+         "Elon_Musk_Hot_Dad.mp3" // song
          );
 
          root = addPath(
@@ -72,7 +77,8 @@ public class Adventure {
          "Option 2", //option 2
          "combat", // specialEvent
          "You have defeated the Long Jack. You need to take a breather and figure out your next move.", // success
-         "KILLED IN COMBAT BY LONG JACK" // fail
+         "KILLED IN COMBAT BY LONG JACK", // fail
+         "Elon_Musk_Hot_Dad.mp3" // song
          ); 
 
       */
@@ -88,7 +94,8 @@ public class Adventure {
          "Not Interested [Leave The Store]", //option 2
          null, // specialEvent
          null, // success
-         null // fail
+         null, // fail
+         "Elon_Musk_Hot_Dad.mp3" // song
          );
          root = addPath(
          root, // root
@@ -100,7 +107,8 @@ public class Adventure {
          "Sorry, Not Interested [Leave The Store]", //option 2
          null, // specialEvent
          null, // success
-         null // fail
+         null, // fail
+         "Elon_Musk_Hot_Dad.mp3" // song
          );
          root = addPath(
          root, // root
@@ -111,7 +119,8 @@ public class Adventure {
          "Give Up", //option 2
          "passcode", // specialEvent
          null, // success
-         null // fail
+         null, // fail
+         "Elon_Musk_Hot_Dad.mp3" // song
          );
          root = addPath(
          root, // root
@@ -125,7 +134,8 @@ public class Adventure {
          "Say You're Just Here For Routine Maintenance [Lie]", // option 2
          null, // specialEvent
          null, // success
-         null // fail
+         null, // fail
+         "Elon_Musk_Hot_Dad.mp3" // song
          );
          root = addPath(
          root, // root
@@ -136,7 +146,8 @@ public class Adventure {
          "Ask It What It Means By \"Alive\"", // option 2
          null, // specialEvent
          null, // success
-         null // fail
+         null, // fail
+         "Elon_Musk_Hot_Dad.mp3" // song
          );
          root = addPath(
          root, // root
@@ -147,7 +158,8 @@ public class Adventure {
          "Ask It More About Its Life...", // option 2
          null, // specialEvent
          null, // success
-         null // fail
+         null, // fail
+         "Elon_Musk_Hot_Dad.mp3" // song
          );
          
          root = addPath(
@@ -159,7 +171,8 @@ public class Adventure {
          "This Isn't Worth 100 Tokens [Drop The Gig, Leave The Garage]", //option 2
          null, // specialEvent
          null, // success
-         null // fail
+         null, // fail
+         "Elon_Musk_Hot_Dad.mp3" // song
          );
          root = addPath(
          root, // root
@@ -170,7 +183,8 @@ public class Adventure {
          "Option 2", //option 2
          "combat", // specialEvent
          "You have defeated the Long Jack. You need to take a breather and figure out your next move.", // success
-         "KILLED IN COMBAT BY LONG JACK" // fail
+         "KILLED IN COMBAT BY LONG JACK", // fail
+         "Elon_Musk_Hot_Dad.mp3" // song
          ); 
    }
 
@@ -184,11 +198,12 @@ private class Path {
    String option2;
    String specialEvent;
    String[] result;
+   String song;
    Path left;
    Path right;
 
    // -------------------- CONSTRUCTOR METHOD
-   public Path(int marker, String event, String story, String option1, String option2, String specialEvent, String success, String fail) {
+   public Path(int marker, String event, String story, String option1, String option2, String specialEvent, String success, String fail, String song) {
       this.marker = marker;
       this.event = event;
       this.story = story;
@@ -198,6 +213,7 @@ private class Path {
       this.result = new String[2];
       this.result[0] = success;
       this.result[1] = fail;
+      this.song = song;
       this.left = null;
       this.right = null;
    }
@@ -205,13 +221,13 @@ private class Path {
 
 
    // Method to add to path
-   public Path addPath(Path root, int marker, String event, String story, String option1, String option2, String specialEvent, String success, String fail) {
+   public Path addPath(Path root, int marker, String event, String story, String option1, String option2, String specialEvent, String success, String fail, String song) {
       if (root == null) {
-         root = new Path(marker, event, story, option1, option2, specialEvent, success, fail);
+         root = new Path(marker, event, story, option1, option2, specialEvent, success, fail, song);
       } else if (marker < root.marker) {
-         root.left = addPath(root.left, marker, event, story, option1, option2, specialEvent, success, fail);
+         root.left = addPath(root.left, marker, event, story, option1, option2, specialEvent, success, fail, song);
       } else if (marker > root.marker){
-         root.right = addPath(root.right, marker, event, story, option1, option2, specialEvent, success, fail);
+         root.right = addPath(root.right, marker, event, story, option1, option2, specialEvent, success, fail, song);
       }
       return root;
    }//end add path
@@ -244,6 +260,7 @@ private class Path {
    public String getSpecialEvent() { return root.specialEvent;}
    public String getSuccess() { return root.result[0]; }
    public String getFail() { return root.result[1]; }
+   public String getSong() { return root.song; }
    public Path getLeft() { return root.left; }
    public Path getRight() { return root.right; }
    //STORY MUTATORS
