@@ -185,7 +185,7 @@ public class Adventure {
          "combat", // specialEvent
          "You have defeated the Long Jack. You need to take a breather and figure out your next move.", // success
          "KILLED IN COMBAT BY LONG JACK", // fail
-         null // song
+         "YouShouldBeMyHero.mp3" // song
          ); 
    }
 
