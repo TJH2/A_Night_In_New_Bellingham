@@ -32,28 +32,32 @@ import elements.Passcode;
 
 public class Game extends Application {
 
-    //STORY
+    // GAME VARIABLES -----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    // GAME ELEMENTS
     private Adventure adventure = new Adventure();
     private Passcode passcode = new Passcode();
     private Character character = new Character();
     private Bestiary bestiary = new Bestiary();
     private Bestiary.Enemy enemy;
 
-    //LABELS/BUTTONS for start menu
-    private Label title;
-    private Button newGame;
-    private Button continueGame;
+    // VARIABLES FOR START MENU SCREEN
     VBox menuLayout = new VBox();
     VBox menuBox = new VBox();
     HBox musicBox = new HBox();
+    private Label title;
+    private Button newGame;
+    private Button continueGame;
 
-    //LABELS/BUTTONS for plot
-    private ScrollPane plotScroll = new ScrollPane();
-    private Label plot;
-    private Button start;
+    // VARIABLES FOR GANE PLOT SCREEN
+
     VBox plotLayout = new VBox();
+    private ScrollPane plotScroll = new ScrollPane();
+    private Label plotText;
+    private Button start;
 
-    //LABELS/BUTTONS for game
+    // VARIABLES FOR GAME SCREEN
+    
     VBox gameLayout = new VBox();
     private ImageView imageView = new ImageView();
     private ScrollPane storyScroll = new ScrollPane();
@@ -62,7 +66,6 @@ public class Game extends Application {
     private Label imageFrame;
     private Label storyText;
     private Label characterInfo;
-    private TextField riddle;
     private Button answer;
     private Button attack;
     private Button juiceBox;
@@ -70,24 +73,24 @@ public class Game extends Application {
     private Button option1;
     private Button option2;
     private Button saveGame;
+    private TextField input;
+    private int combatRound = 0;
+    private String logs;
+    private String newLog;
 
-    //DEATH
+    // VARIABLES FOR GAME OVER SCREEN
+
     VBox gameOverLayout;
     private ScrollPane gameOverScroll = new ScrollPane();
     private Label gameOverText;
     private Button reboot;
 
+    // VARIABLES FOR BACKGROUND MUSIC
 
-    //COMBAT
-    private String logs;
-    private String newLog;
-    private int round = 0;
-
-    //MUSIC
-    private String currentSong = "ScaryMonstersandNiceSprites8Bit.mp3";
+    private String currentSong = "YouShouldBeMyHero.mp3";
     private MediaPlayer audioPlayer;
-    private Slider volume1;
-    private Slider volume2;
+    private Slider menuVolume;
+    private Slider gameVolume;
 
 
     public static void main(String[] args) { launch(args); } // end of main
@@ -96,46 +99,110 @@ public class Game extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("A Night In New Bellingham"); // program title
-
+        /*
+        -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        STARTING BACKGROUND MUSIC
+        -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        */
         backgroundMusic(currentSong);
-  
-        volume1 = new Slider(0,1,0);
-        volume1.setOrientation(Orientation.HORIZONTAL);
-        volume1.setValue(100);
-        volume1.setMaxWidth(100);
-        audioPlayer.volumeProperty().bindBidirectional(volume1.valueProperty()); // sets volume of music to slider
-        volume2 = new Slider(0,1,0);
-        volume2.setOrientation(Orientation.HORIZONTAL);
-        volume2.setValue(100);
-        volume2.setMaxWidth(100);
-        audioPlayer.volumeProperty().bindBidirectional(volume2.valueProperty()); // sets volume of music to slider
-        
-        // Death layout
-        gameOverText = new Label();
-        gameOverText.setPrefWidth(450);
-        gameOverText.setMinHeight(450);
-        gameOverText.setAlignment(Pos.TOP_CENTER);
-        gameOverText.setWrapText(true); // makes the story text wrap so that it doesnt bleed out of frame
-        gameOverText.setStyle("-fx-padding: 10;-fx-background-color: black;-fx-text-fill: green;");
-        gameOverScroll.setContent(gameOverText);
-        gameOverScroll.setMaxWidth(450);
-        gameOverScroll.setPrefHeight(450);
-        gameOverScroll.setHbarPolicy(ScrollBarPolicy.NEVER);
-        gameOverScroll.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-        gameOverScroll.setStyle("-fx-opacity: .90;");
-        
-        reboot = new Button("REBOOT");
-        gameOverLayout = new VBox();
-        gameOverLayout.getChildren().addAll(gameOverScroll, reboot);
-        //STYING For Plot
-        gameOverLayout.setAlignment(Pos.CENTER); // centers child elements
-        gameOverLayout.setPadding(new Insets(5));
-        gameOverLayout.setSpacing(15); // spacing between elements
-        gameOverLayout.setStyle("-fx-background-color: black;");
-        gameOverText.setFont(Font.font("Consolas"));
-        Scene gameOver = new Scene(gameOverLayout, 625, 675);
 
-        // Game Layout ---------------------------------------------------------------------------------
+        // VOLUME SLIDER FOR MAIN MENU
+        menuVolume = new Slider(0,1,0);
+        menuVolume.setOrientation(Orientation.HORIZONTAL);
+        menuVolume.setValue(100);
+        menuVolume.setMaxWidth(100);
+        audioPlayer.volumeProperty().bindBidirectional(menuVolume.valueProperty()); // sets volume of music to slider
+
+        menuVolume.setStyle("-fx-color: green;-fx-opacity: 65%;");
+
+        // VOLUME SLIDER FOR GAME
+
+        gameVolume = new Slider(0,1,0);
+        gameVolume.setOrientation(Orientation.HORIZONTAL);
+        gameVolume.setValue(100);
+        gameVolume.setMaxWidth(100);
+        audioPlayer.volumeProperty().bindBidirectional(gameVolume.valueProperty()); // sets volume of music to slider
+
+        gameVolume.setStyle("-fx-color: green;-fx-opacity: 65%;");
+
+        /*
+        -------------------------------------------------------------------------------------------------------------------------------------------------------------
+         SCENE LAYOUTS AND STYLING 
+        ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+        */
+
+        // MAIN MENU LAYOUT ---------------------------------------------------------------------------------------------------------------------------------------------
+
+        title = new Label("A_NIGHT_IN_NEW_BELLINGHAM");
+        title.setMaxWidth(400);
+        title.setMinHeight(40);
+        title.setAlignment(Pos.CENTER);
+        newGame = new Button("New Game");
+        continueGame = new Button("Continue Game");
+        menuBox = new VBox(title, newGame, continueGame);
+        menuBox.setAlignment(Pos.CENTER);
+        menuBox.setPrefHeight(635);
+        menuBox.setSpacing(15);
+        musicBox = new HBox(menuVolume);
+        musicBox.setAlignment(Pos.BOTTOM_RIGHT);
+        menuLayout = new VBox();
+        menuLayout.getChildren().addAll(menuBox, musicBox);
+
+        //STYLING FOR MAIN MENU
+
+        menuLayout.setAlignment(Pos.CENTER); // centers child elements
+        menuLayout.setPadding(new Insets(5));
+        title.setStyle("-fx-background-color: black;-fx-text-fill: green; fx-padding: 5;-fx-border-width: 2;-fx-border-style: solid;-fx-border-color: purple; -fx-opacity: .90;");
+        menuLayout.setStyle("-fx-background-image: url(resources/images/bellingham.jpg); " +
+        "-fx-background-position: center center; " +
+        "-fx-background-repeat: stretch;");
+        title.setFont(Font.font("Consolas"));
+
+        // MAIN MENU SCENE
+
+        Scene startGame = new Scene(menuLayout, 625, 675); // layout and size of main menu
+
+        // GAME PLOT LAYOUT -----------------------------------------------------------------------------------------------------------------------------------------------------
+
+        plotText = new Label("Welcome to New Bellingham, the last bastion of civilization in the Pacific Northwest. After the cataclysmic event that wiped out Seattle in 2032, this once-sleepy town became a refuge for tens of thousands of survivors, desperate for a new start. But the influx of people overwhelmed the city's resources, creating a stark divide between the haves and the have-nots.\n\n" +
+        "On one side of the bay, you have Fairhaven, the gleaming micro-city where the elite enjoy the latest in technology and luxury. Here, you can find anything from cybernetic enhancements to virtual reality entertainment, as long as you have the Tokens to pay for it. Fairhaven is protected by a private security force, and its residents rarely venture outside their bubble.\n\n" +
+        "On the other side, you have Old Town, formerly known as Downtown, the original heart of Bellingham that has been transformed into a gritty urban jungle. Here, you can find anything from drugs to weapons to information, as long as you have the skills to survive. The outskirts are ruled by gangs, hackers, and hustlers, but the center still holds some of the old downtown Bellingham charm (albeit with a little more neon).\n\n" +
+        "You are an “Edger,” a street-wise resident of Old Town. You know how to navigate the neon-lit alleys and establishments of your home turf, and you have a knack for finding trouble and opportunity. Like all residents, you have your own personal Stitch that lets you access the Net, a digital realm where data and secrets are stored and traded. You also have a crew, a group of friends who share your passion for adventure and rebellion.\n\n" +
+        "Your story begins on a typical night in Old Town. Your plan is the same as every night, nothing. You got a bunch of Tokens that you made from a previous gig and you're just looking for some fun, some trouble, some adventure. Maybe you'll hook up with some friends, maybe you'll piss off some enemies. Maybe you'll find fame, maybe you'll find death. Maybe you'll find something else entirely.\n\n" +
+        "You don't know what awaits you in Old Town.\n\n" +
+        "But you're ready to face it."
+        );
+        plotText.setMaxWidth(435);
+        plotText.setAlignment(Pos.TOP_CENTER);
+        plotText.setWrapText(true); // makes the story text wrap so that it doesnt bleed out of frame
+        plotText.setStyle("-fx-padding: 10;-fx-background-color: black;-fx-text-fill: green;");
+        plotScroll.setContent(plotText);
+        plotScroll.setMaxWidth(450);
+        plotScroll.setPrefHeight(450);
+        plotScroll.setHbarPolicy(ScrollBarPolicy.NEVER);
+        plotScroll.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        plotScroll.setStyle("-fx-opacity: .90;");
+        
+        start = new Button("START GAME");
+        plotLayout = new VBox();
+        plotLayout.getChildren().addAll(plotScroll, start);
+
+        //STYING FOR PLOT
+
+        plotLayout.setAlignment(Pos.CENTER); // centers child elements
+        plotLayout.setPadding(new Insets(5));
+        plotLayout.setSpacing(15); // spacing between elements
+        plotLayout.setStyle("-fx-background-image: url(resources/images/bellingham.jpg); " +
+        "-fx-background-position: center center; " +
+        "-fx-background-repeat: stretch;");
+        plotText.setFont(Font.font("Consolas"));
+
+        // GAME PLOT SCENE
+
+        Scene gamePlot = new Scene(plotLayout, 625, 675);
+        
+        // GAME LAYOUT ------------------------------------------------------------------------------------------------------------------------------------------------------------
+       
         imageView.setImage(new Image("resources/images/" + adventure.getEvent() + ".jpg"));
         //setting the fit height and width of the image view 
         imageView.setFitWidth(400);
@@ -160,12 +227,16 @@ public class Game extends Application {
         characterInfo.setPrefWidth(405);
         characterInfo.setMinHeight(30);
 
-        // FOR RIDDLE EVENTS
-        riddle = new TextField();
-        riddle.setPrefWidth(250);
+        // SPECIAL EVENTS 
+        
+        // FOR PASSCODE EVENTS
+
+        input = new TextField();
+        input.setPrefWidth(250);
         answer = new Button("Enter");
 
         // FOR COMBAT EVENTS
+
         attack = new Button("Attack");
         
         juiceBox = new Button("Juice");
@@ -174,7 +245,7 @@ public class Game extends Application {
 
         option1 = new Button();
 
-        eventBox.getChildren().addAll(riddle, answer, attack, juiceBox);
+        eventBox.getChildren().addAll(input, answer, attack, juiceBox);
         eventBox.setAlignment(Pos.CENTER); // centers child elements
         eventBox.setSpacing(10); // spacing between elements
 
@@ -182,12 +253,14 @@ public class Game extends Application {
 
         saveGame = new Button("Save Game");
 
-        gameFooter = new HBox(saveGame, volume2);
+        gameFooter = new HBox(saveGame, gameVolume);
         gameFooter.setAlignment(Pos.BOTTOM_CENTER);
         gameFooter.setSpacing(435);
 
         gameLayout = new VBox();
-        //STYLING For Game
+
+        //STYLING For GAME SCREEN 
+
         gameLayout.getChildren().addAll(imageFrame, characterInfo, storyScroll, eventBox, flee, option1, option2, gameFooter);
         gameLayout.setAlignment(Pos.TOP_CENTER); // centers child elements
         gameLayout.setPadding(new Insets(5));
@@ -196,7 +269,7 @@ public class Game extends Application {
         characterInfo.setStyle("-fx-background-color:black;-fx-text-fill:purple;-fx-padding: 5;-fx-border-width: 2;-fx-border-style: solid;-fx-border-color: purple;-fx-opacity: .90;");
         storyText.setStyle("-fx-background-color:black;-fx-text-fill:green;-fx-padding: 5;");
         storyScroll.setStyle("-fx-opacity: .90;");
-        riddle.setStyle("-fx-background-color:black;-fx-text-fill:green;-fx-padding: 5; -fx-border-width: 2;-fx-border-style: solid;-fx-border-color: purple;-fx-opacity: .90;");
+        input.setStyle("-fx-background-color:black;-fx-text-fill:green;-fx-padding: 5; -fx-border-width: 2;-fx-border-style: solid;-fx-border-color: purple;-fx-opacity: .90;");
         gameLayout.setStyle("-fx-background-image: url(resources/images/bellingham.jpg); " +
         "-fx-background-position: center center; " +
         "-fx-background-repeat: stretch;");
@@ -204,76 +277,82 @@ public class Game extends Application {
         option1.setFont(Font.font("Consolas"));
         option2.setFont(Font.font("Consolas"));
 
+        // GAME SCENE 
+
         Scene playGame = new Scene(gameLayout, 625, 675); // layout and size of game
 
-        //Plot layout -------------------------------------------------------------------------------------------------
-        plot = new Label("Welcome to New Bellingham, the last bastion of civilization in the Pacific Northwest. After the cataclysmic event that wiped out Seattle in 2032, this once-sleepy town became a refuge for tens of thousands of survivors, desperate for a new start. But the influx of people overwhelmed the city's resources, creating a stark divide between the haves and the have-nots.\n\n" +
-        "On one side of the bay, you have Fairhaven, the gleaming micro-city where the elite enjoy the latest in technology and luxury. Here, you can find anything from cybernetic enhancements to virtual reality entertainment, as long as you have the Tokens to pay for it. Fairhaven is protected by a private security force, and its residents rarely venture outside their bubble.\n\n" +
-        "On the other side, you have Old Town, formerly known as Downtown, the original heart of Bellingham that has been transformed into a gritty urban jungle. Here, you can find anything from drugs to weapons to information, as long as you have the skills to survive. The outskirts are ruled by gangs, hackers, and hustlers, but the center still holds some of the old downtown Bellingham charm (albeit with a little more neon).\n\n" +
-        "You are an “Edger,” a street-wise resident of Old Town. You know how to navigate the neon-lit alleys and establishments of your home turf, and you have a knack for finding trouble and opportunity. Like all residents, you have your own personal Stitch that lets you access the Net, a digital realm where data and secrets are stored and traded. You also have a crew, a group of friends who share your passion for adventure and rebellion.\n\n" +
-        "Your story begins on a typical night in Old Town. Your plan is the same as every night, nothing. You got a bunch of Tokens that you made from a previous gig and you're just looking for some fun, some trouble, some adventure. Maybe you'll hook up with some friends, maybe you'll piss off some enemies. Maybe you'll find fame, maybe you'll find death. Maybe you'll find something else entirely.\n\n" +
-        "You don't know what awaits you in Old Town.\n\n" +
-        "But you're ready to face it."
-        );
-        plot.setMaxWidth(435);
-        plot.setAlignment(Pos.TOP_CENTER);
-        plot.setWrapText(true); // makes the story text wrap so that it doesnt bleed out of frame
-        plot.setStyle("-fx-padding: 10;-fx-background-color: black;-fx-text-fill: green;");
-        plotScroll.setContent(plot);
-        plotScroll.setMaxWidth(450);
-        plotScroll.setPrefHeight(450);
-        plotScroll.setHbarPolicy(ScrollBarPolicy.NEVER);
-        plotScroll.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-        plotScroll.setStyle("-fx-opacity: .90;");
+        // GAME OVER LAYOUT -------------------------------------------------------------------------------------------------------------------------------------------
         
-        start = new Button("START GAME");
-        plotLayout = new VBox();
-        plotLayout.getChildren().addAll(plotScroll, start);
-        //STYING For Plot
-        plotLayout.setAlignment(Pos.CENTER); // centers child elements
-        plotLayout.setPadding(new Insets(5));
-        plotLayout.setSpacing(15); // spacing between elements
-        plotLayout.setStyle("-fx-background-image: url(resources/images/bellingham.jpg); " +
-        "-fx-background-position: center center; " +
-        "-fx-background-repeat: stretch;");
-        plot.setFont(Font.font("Consolas"));
+        gameOverText = new Label();
+        gameOverText.setPrefWidth(450);
+        gameOverText.setMinHeight(450);
+        gameOverText.setAlignment(Pos.TOP_CENTER);
+        gameOverText.setWrapText(true); // makes the story text wrap so that it doesnt bleed out of frame
+        gameOverText.setStyle("-fx-padding: 10;-fx-background-color: black;-fx-text-fill: green;");
+        gameOverScroll.setContent(gameOverText);
+        gameOverScroll.setMaxWidth(450);
+        gameOverScroll.setPrefHeight(450);
+        gameOverScroll.setHbarPolicy(ScrollBarPolicy.NEVER);
+        gameOverScroll.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        gameOverScroll.setStyle("-fx-opacity: .90;");
+        
+        reboot = new Button("REBOOT");
+        gameOverLayout = new VBox();
+        gameOverLayout.getChildren().addAll(gameOverScroll, reboot);
+        //STYING FOR GAME OVER
+        gameOverLayout.setAlignment(Pos.CENTER); // centers child elements
+        gameOverLayout.setPadding(new Insets(5));
+        gameOverLayout.setSpacing(15); // spacing between elements
+        gameOverLayout.setStyle("-fx-background-color: black;");
+        gameOverText.setFont(Font.font("Consolas"));
+        Scene gameOver = new Scene(gameOverLayout, 625, 675);
 
-        Scene plotGame = new Scene(plotLayout, 625, 675);
 
-        //Start Screen Layout -------------------------------------------------------------------------------
-        title = new Label("A_NIGHT_IN_NEW_BELLINGHAM");
-        title.setMaxWidth(400);
-        title.setMinHeight(40);
-        title.setAlignment(Pos.CENTER);
-        newGame = new Button("New Game");
-        continueGame = new Button("Continue Game");
-        menuBox = new VBox(title, newGame, continueGame);
-        menuBox.setAlignment(Pos.CENTER);
-        menuBox.setPrefHeight(635);
-        menuBox.setSpacing(15);
-        musicBox = new HBox(volume1);
-        musicBox.setAlignment(Pos.BOTTOM_RIGHT);
-        menuLayout = new VBox();
-        menuLayout.getChildren().addAll(menuBox, musicBox);
-        //STYLING For Start Menu
-        menuLayout.setAlignment(Pos.CENTER); // centers child elements
-        menuLayout.setPadding(new Insets(5));
-        title.setStyle("-fx-background-color: black;-fx-text-fill: green; fx-padding: 5;-fx-border-width: 2;-fx-border-style: solid;-fx-border-color: purple; -fx-opacity: .90;");
-        menuLayout.setStyle("-fx-background-image: url(resources/images/bellingham.jpg); " +
-        "-fx-background-position: center center; " +
-        "-fx-background-repeat: stretch;");
-        title.setFont(Font.font("Consolas"));
 
-        Scene startGame = new Scene(menuLayout, 625, 675); // layout and size of start screen
-
-        //Stage
+        /*
+        ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         SET STAGE
+        --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        */
         stage.setScene(startGame);
         stage.setResizable(false);
         stage.show();
 
-        //BUTTON EFFECTS -------------------------------------------------------------------------------------------------
+        /*
+        ------------------------------------------------------------------------------------------------------------------------------------------------
+        BUTTON EFFECTS
+        ------------------------------------------------------------------------------------------------------------------------------------------------
+        */
+
+
+        // MAIN MENU BUTTONS -----------------------------------------------------------------------------------------------------------------------------
+        
+        // NEW GAME
+
+        newGame.setOnAction(e -> { stage.setScene(gamePlot); });
+
+        // CONTINUE
+
+        continueGame.setOnAction(e -> {
+            try {
+            adventure.loadFile();
+            }
+            catch(FileNotFoundException ex) { System.out.print("No File Found"); }
+            refresh();
+            stage.setScene(playGame);
+        });
+
+        // GAME START BUTTON -----------------------------------------------------------------------------------------------------------------------------------------------------
+        
+        start.setOnAction(e ->  {
+            stage.setScene(playGame);
+            refresh();
+        });
+
+        // GAME BUTTONS -----------------------------------------------------------------------------------------------------------------------------------------------------------
         
         // OPTION 1
+
         option1.setOnAction( e -> {
             if(adventure.getSpecialEvent() == null) {
                 if(adventure.getLeft() != null) {
@@ -287,7 +366,9 @@ public class Game extends Application {
             else { System.out.println("There is a special event") ;}    
         });
         
+        
         // OPTION 2
+
         option2.setOnAction(e -> {
             if(adventure.getRight() != null) {
                 adventure.goRight();
@@ -296,42 +377,8 @@ public class Game extends Application {
             else { System.out.println("DEAD END Right"); }
     });
 
-        //REBOOT
-        reboot.setOnAction(e -> {
-            this.adventure = new Adventure(); // restarts adventure
-            character.restock(); // replenishes health and adds + 5 JB
-            refresh(); // refrshes screne
-            stage.setScene(playGame);
-        });
-
-        //START
-        start.setOnAction(e -> stage.setScene(playGame));
-        continueGame.setOnAction(e -> {
-            try {
-            adventure.loadFile();
-            }
-            catch(FileNotFoundException ex) { System.out.print("No File Found"); }
-            refresh();
-            stage.setScene(playGame);
-        });
-
-        //ANSWER
-        answer.setOnAction(e -> {
-            // takes the path event and cross-references it with riddler to compare response to the answer
-            if(riddle.getText().equals(passcode.getAnswer(adventure.getEvent()))) {
-                if(adventure.getLeft() != null) { adventure.goLeft(); }
-                refresh(); 
-            }
-            else { System.out.println("Wrong Answer"); }
-        });
-
-        //NEW GAME
-        newGame.setOnAction(e -> {
-            stage.setScene(plotGame);
-            refresh();
-        });
-
         // SAVE GAME
+
         saveGame.setOnAction(e -> {
             try { //overwrites current save file
                     PrintStream overwrite = new PrintStream(new File("src\\save.txt"));
@@ -339,8 +386,22 @@ public class Game extends Application {
             }
             catch(FileNotFoundException ex) {}
             });
-        // COMBAT BUTTONS ----------------------------------------------------------------------------------------------
+
+        // PASSCODE BUTTON -----------------------------------------------------------------------------------------------------------------------------------------------------
+        
+        answer.setOnAction(e -> {
+            // takes the path event and cross-references it with riddler to compare response to the answer
+            if(input.getText().equals(passcode.getAnswer(adventure.getEvent()))) {
+                if(adventure.getLeft() != null) { adventure.goLeft(); }
+                refresh(); 
+            }
+            else { System.out.println("Wrong Answer"); }
+        });
+
+        // COMBAT BUTTONS -----------------------------------------------------------------------------------------------------------------------------------------------------
+        
         // JUICE BOX
+       
         juiceBox.setOnAction(e -> {
             if(character.getJB() == 0) {
                 newLog = "You're Out Of Cartridges...\n";
@@ -360,8 +421,8 @@ public class Game extends Application {
                 newLog = "You Inject Some SpazzRazz And Heal\n";
                 updateLogs(newLog);
             }
-                round++;
-                newLog = "Round " + round + ":\n";
+                combatRound++;
+                newLog = "Round " + combatRound + ":\n";
                 updateLogs(newLog);
                 storyText.setText(readLogs());
                 characterInfo.setText(stats());
@@ -369,10 +430,11 @@ public class Game extends Application {
         });
 
         // FLEE
+
         flee.setOnAction(e -> {
             flee();
-            round++;
-            newLog = "Round " + round + ":\n";
+            combatRound++;
+            newLog = "Round " + combatRound + ":\n";
             updateLogs(newLog);
             storyText.setText(readLogs());
             characterInfo.setText(stats());
@@ -385,11 +447,12 @@ public class Game extends Application {
         });
 
         // ATTACK
+
         attack.setOnAction(e -> {
             enemyAttack();
             characterAttack();
-            round++;
-            newLog = "Round " + round + ":\n";
+            combatRound++;
+            newLog = "Round " + combatRound + ":\n";
             updateLogs(newLog);
             storyText.setText(readLogs());
             characterInfo.setText(stats());
@@ -403,11 +466,26 @@ public class Game extends Application {
                 combatSuccess();
             }
         });
+
+    // REBOOT BUTTON -----------------------------------------------------------------------------------------------
     
-    } // end of start
-    //METHODS
+    reboot.setOnAction(e -> {
+        this.adventure = new Adventure(); // restarts adventure
+        character.restock(); // replenishes health and adds + 5 JB
+        refresh(); // refrshes screne
+        stage.setScene(playGame);
+    });
+    
+    } // END OF START
+    
+    /*
+    ----------------------------------------------------------------------------------------------------------------------------
+    METHODS
+    ----------------------------------------------------------------------------------------------------------------------------
+    */
 
     //GAME LOGS
+    
     public void updateLogs(String logs) {
         this.logs = logs + this.logs;
         return;
@@ -422,7 +500,10 @@ public class Game extends Application {
         return this.logs;
     }
 
-    // COMBAT
+    // COMBAT METHODS -----------------------------------------------------------------------------------------------------------------------------------------
+    
+    //CHARACTER ATTACK METHOD
+
     public void characterAttack(){
     if(enemy.dodgeChance() < character.hitChance()) {
     int damage = character.dealDamage();
@@ -436,6 +517,8 @@ public class Game extends Application {
     }
     return;
     }
+
+    //ENEMY ATTACK METHOD
 
     public void enemyAttack() {
         if(character.dodgeChance() < enemy.hitChance()) {
@@ -451,6 +534,8 @@ public class Game extends Application {
         return;
     }
 
+    // CHARACTER FLEE METHOD
+
     public void flee() {
         if(character.hitChance() - enemy.getEdge() <= 10) {
         enemyAttack();
@@ -465,6 +550,8 @@ public class Game extends Application {
         return;
     }
 
+    // METHOD FOR COMBAT SUCCESS
+
     public void combatSuccess() {
         String reward = "\n\nYOUR REWARD:\n" +
         enemy.getTokens() + " Tokens\n" + enemy.getXP() + " XP\n";
@@ -476,7 +563,10 @@ public class Game extends Application {
         return;
     }
 
+    // GAME REFRESH METHODS ------------------------------------------------------------------------------------------------------------------------------------------------
+    
     // METHOD FOR REFRESHING STAT BAR WITH INFO
+    
     public String stats() {
         return "HP:" + character.getCurrentHP() +
         "] ~ [M:" + character.getMuscle() +
@@ -488,7 +578,9 @@ public class Game extends Application {
         "] ~ [Tokens:" + character.getTokens() + 
         "]";
     }
+    
     // METHOD FOR REFRESHING PAGE WITH NEW INFO
+    
     public void refresh() {
         imageView.setImage(new Image("resources/images/" + adventure.getEvent() + ".jpg"));
         storyText.setText(adventure.getStory());
@@ -515,16 +607,17 @@ public class Game extends Application {
         }
         return;
         
-    } // end of refresh
+    } // END OF REFRESH
 
-    // GAME SCREEN VIEWS
+    // GAME SCREEN VIEW REFRESHES 
+    
     public void normalView() {
         option1.setVisible(true);
         option1.setManaged(true);
         option2.setVisible(true);
         option2.setManaged(true); 
-        riddle.setVisible(false);
-        riddle.setManaged(false);
+        input.setVisible(false);
+        input.setManaged(false);
         answer.setVisible(false);
         answer.setManaged(false);
         attack.setVisible(false);
@@ -538,8 +631,8 @@ public class Game extends Application {
 
     public void combatView() {
         enemy = bestiary.findEnemy(adventure.getEvent()); // resets value of beast
-        riddle.setVisible(false);
-        riddle.setManaged(false);
+        input.setVisible(false);
+        input.setManaged(false);
         answer.setVisible(false);
         answer.setManaged(false);
         attack.setVisible(true);
@@ -556,8 +649,8 @@ public class Game extends Application {
     }
 
     public void passcodeView() {
-        riddle.setVisible(true);
-        riddle.setManaged(true);
+        input.setVisible(true);
+        input.setManaged(true);
         answer.setVisible(true);
         answer.setManaged(true);
         attack.setVisible(false);
@@ -573,6 +666,8 @@ public class Game extends Application {
         return;
     }
 
+    //METHOD FOR CONTROLLING BACKGROUND MUSIC --------------------------------------------------------------------------------------------------------------------------------------
+    
     public void backgroundMusic(String song) {
         File audioFile = new File("src\\resources\\audio\\" + song);
         if(audioFile.exists()) {
@@ -586,4 +681,4 @@ public class Game extends Application {
         }
     
 
-} // end of class
+} // END OF CLASS
