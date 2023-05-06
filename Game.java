@@ -84,7 +84,7 @@ public class Game extends Application {
     private int round = 0;
 
     //MUSIC
-    private String currentSong = "YouShouldBeMyHero.mp3";
+    private String currentSong = "ScaryMonstersandNiceSprites8Bit.mp3";
     private MediaPlayer audioPlayer;
     private Slider volume1;
     private Slider volume2;
