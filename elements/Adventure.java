@@ -95,8 +95,9 @@ public class Adventure {
          null, // specialEvent
          null, // success
          null, // fail
-         "Elon_Musk_Hot_Dad.mp3" // song
+         "DrivingFastandUsingaCarPhonetoCallthePresentDay.mp3" // song
          );
+   
          root = addPath(
          root, // root
          500, // marker
@@ -108,7 +109,7 @@ public class Adventure {
          null, // specialEvent
          null, // success
          null, // fail
-         "Elon_Musk_Hot_Dad.mp3" // song
+         null // song
          );
          root = addPath(
          root, // root
@@ -120,7 +121,7 @@ public class Adventure {
          "passcode", // specialEvent
          null, // success
          null, // fail
-         "Elon_Musk_Hot_Dad.mp3" // song
+         null // song
          );
          root = addPath(
          root, // root
@@ -135,7 +136,7 @@ public class Adventure {
          null, // specialEvent
          null, // success
          null, // fail
-         "Elon_Musk_Hot_Dad.mp3" // song
+         null // song
          );
          root = addPath(
          root, // root
@@ -147,7 +148,7 @@ public class Adventure {
          null, // specialEvent
          null, // success
          null, // fail
-         "Elon_Musk_Hot_Dad.mp3" // song
+         null // song
          );
          root = addPath(
          root, // root
@@ -159,7 +160,7 @@ public class Adventure {
          null, // specialEvent
          null, // success
          null, // fail
-         "Elon_Musk_Hot_Dad.mp3" // song
+         null // song
          );
          
          root = addPath(
@@ -172,7 +173,7 @@ public class Adventure {
          null, // specialEvent
          null, // success
          null, // fail
-         "Elon_Musk_Hot_Dad.mp3" // song
+         null // song
          );
          root = addPath(
          root, // root
@@ -184,7 +185,7 @@ public class Adventure {
          "combat", // specialEvent
          "You have defeated the Long Jack. You need to take a breather and figure out your next move.", // success
          "KILLED IN COMBAT BY LONG JACK", // fail
-         "Elon_Musk_Hot_Dad.mp3" // song
+         null // song
          ); 
    }
 
