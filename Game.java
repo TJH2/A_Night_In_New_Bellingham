@@ -35,6 +35,7 @@ public class Game extends Application {
     // GAME VARIABLES -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
     // GAME ELEMENTS
+    
     private Adventure adventure = new Adventure();
     private Passcode passcode = new Passcode();
     private Character character = new Character();
@@ -42,6 +43,7 @@ public class Game extends Application {
     private Bestiary.Enemy enemy;
 
     // VARIABLES FOR START MENU SCREEN
+    
     VBox menuLayout = new VBox();
     VBox menuBox = new VBox();
     HBox musicBox = new HBox();
@@ -99,11 +101,13 @@ public class Game extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("A Night In New Bellingham"); // program title
+        
         /*
         -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         STARTING BACKGROUND MUSIC
         -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         */
+        
         backgroundMusic(currentSong);
 
         // VOLUME SLIDER FOR MAIN MENU
@@ -148,7 +152,7 @@ public class Game extends Application {
         menuLayout = new VBox();
         menuLayout.getChildren().addAll(menuBox, musicBox);
 
-        //STYLING FOR MAIN MENU
+        // STYLING FOR MAIN MENU
 
         menuLayout.setAlignment(Pos.CENTER); // centers child elements
         menuLayout.setPadding(new Insets(5));
@@ -187,7 +191,7 @@ public class Game extends Application {
         plotLayout = new VBox();
         plotLayout.getChildren().addAll(plotScroll, start);
 
-        //STYING FOR PLOT
+        // STYING FOR PLOT
 
         plotLayout.setAlignment(Pos.CENTER); // centers child elements
         plotLayout.setPadding(new Insets(5));
@@ -259,7 +263,7 @@ public class Game extends Application {
 
         gameLayout = new VBox();
 
-        //STYLING For GAME SCREEN 
+        // STYLING FOR GAME SCREEN 
 
         gameLayout.getChildren().addAll(imageFrame, characterInfo, storyScroll, eventBox, flee, option1, option2, gameFooter);
         gameLayout.setAlignment(Pos.TOP_CENTER); // centers child elements
@@ -314,6 +318,7 @@ public class Game extends Application {
          SET STAGE
         --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         */
+        
         stage.setScene(startGame);
         stage.setResizable(false);
         stage.show();
