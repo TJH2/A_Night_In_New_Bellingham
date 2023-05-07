@@ -115,9 +115,8 @@ public class Game extends Application {
 
         // VOLUME SLIDER FOR MAIN MENU
 
-        menuVolume = new Slider(0,1,0);
+        menuVolume = new Slider(0,1,.5);
         menuVolume.setOrientation(Orientation.HORIZONTAL);
-        menuVolume.setValue(100);
         menuVolume.setMaxWidth(100);
         audioPlayer.volumeProperty().bindBidirectional(menuVolume.valueProperty()); // sets volume of music to slider
 
@@ -125,11 +124,9 @@ public class Game extends Application {
 
         // VOLUME SLIDER FOR GAME
 
-        gameVolume = new Slider(0,1,0);
+        gameVolume = new Slider(0,1,.5);
         gameVolume.setOrientation(Orientation.HORIZONTAL);
-        gameVolume.setValue(100);
         gameVolume.setMaxWidth(100);
-        audioPlayer.volumeProperty().bindBidirectional(gameVolume.valueProperty()); // sets volume of music to slider
 
         gameVolume.setStyle("-fx-color: green;-fx-opacity: 65%;");
 
@@ -350,13 +347,15 @@ public class Game extends Application {
             adventure.loadFile();
             }
             catch(FileNotFoundException ex) { System.out.print("No File Found"); }
-            refresh();
+            gameVolume.setValue(menuVolume.getValue());
             stage.setScene(playGame);
+            refresh();
         });
 
         // GAME START BUTTON -----------------------------------------------------------------------------------------------------------------------------------------------------
         
         start.setOnAction(e ->  {
+            gameVolume.setValue(menuVolume.getValue());
             stage.setScene(playGame);
             refresh();
         });
@@ -615,6 +614,7 @@ public class Game extends Application {
         currentSong = adventure.getSong();
         }
         }
+        audioPlayer.volumeProperty().bindBidirectional(gameVolume.valueProperty()); // sets volume of music to slider
         return;
         
     } // END OF REFRESH
