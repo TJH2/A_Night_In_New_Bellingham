@@ -260,7 +260,7 @@ public class Game extends Application {
 
         gameFooter = new HBox(saveGame, gameVolume);
         gameFooter.setAlignment(Pos.BOTTOM_CENTER);
-        gameFooter.setSpacing(435);
+        gameFooter.setSpacing(440);
 
         gameLayout = new VBox();
 
