@@ -223,7 +223,7 @@ public class Game extends Application {
         storyText.setMinHeight(150);
         storyScroll.setContent(storyText);
         storyScroll.setMaxWidth(405);
-        storyScroll.setPrefHeight(100);
+        storyScroll.setPrefHeight(150);
         storyScroll.setHbarPolicy(ScrollBarPolicy.NEVER);
         storyScroll.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
         characterInfo = new Label(stats());
