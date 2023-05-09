@@ -481,6 +481,7 @@ public class Game extends Application {
     reboot.setOnAction(e -> {
         this.adventure = new Adventure(); // restarts adventure
         character.restock(); // replenishes health and adds + 5 JB
+        adventure.changeEvent("start"); // returns player to start of game
         refresh(); // refrshes screne
         stage.setScene(playGame);
     });
