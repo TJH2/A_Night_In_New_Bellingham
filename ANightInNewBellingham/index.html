@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>A Night In New Bellingham</title>
+        <meta charset="utf-8">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <style>
+            * {
+                margin: 0px;
+                padding: 0px;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: "roboto", sans-serif;
+                background-color: purple;
+                width: 100%;
+                height: 100%;
+            }
+            div {
+                margin: 10px auto;
+                padding: 10px;
+                background-image: url("images/bellingham.jpg");
+                background-repeat: no-repeat;
+                width: 1024px;
+                height: 97.5vh;
+                border: 5px solid black;
+                box-shadow: 5px 5px black;
+            }
+            header h1 {
+                text-align: center;
+                padding: 5px;
+                background-color: black;
+                color: green;
+                border: 5px solid purple;
+                box-shadow: 5px 5px black;
+                opacity: 65%;
+            }
+
+            #plot {
+                padding: 10px;
+                width: 500px;
+                height:500px;
+                background-image: none;
+                background-color: black;
+                color: green;
+                overflow-y: scroll;
+                border: 2px solid purple;
+                opacity: 80%;
+            }
+
+            main button {
+                margin: 10px auto;
+                padding: 10px;
+                display: block;
+            }
+
+            #audioTag {
+                height: 60px;
+                width: 300px;
+                position: fixed;
+                bottom: 5px;
+                right: 5px;
+                overflow: hidden;
+                background-color: black;
+                opacity: 80%;
+            }
+
+            #audioTag p {
+                padding: 2px;
+                text-align: center;
+                color: green;
+                white-space: nowrap;
+                animation: slide 10s infinite;
+            }
+
+            @keyframes slide {
+                from { transform: translateX(100%); }
+                to { transform: translateX(-100%); }
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <header>
+                <h1>< A_NIGHT_IN_NEW_BELLINGHAM /></h1>
+            </header>
+            <main>
+                <div id = "plot">
+                    <p>Welcome to New Bellingham, the last bastion of civilization in the Pacific Northwest. After the cataclysmic event that wiped out Seattle in 2032, this once-sleepy town became a refuge for tens of thousands of survivors, desperate for a new start. But the influx of people overwhelmed the city's resources, creating a stark divide between the haves and the have-nots.</p><br>
+                    <p>On one side of the bay, you have Fairhaven, the gleaming micro-city where the elite enjoy the latest in technology and luxury. Here, you can find anything from cybernetic enhancements to virtual reality entertainment, as long as you have the Tokens to pay for it. Fairhaven is protected by a private security force, and its residents rarely venture outside their bubble.</p><br>
+                    <p>On the other side, you have Old Town, formerly known as Downtown, the original heart of Bellingham that has been transformed into a gritty urban jungle. Here, you can find anything from drugs to weapons to information, as long as you have the skills to survive. The outskirts are ruled by gangs, hackers, and hustlers, but the center still holds some of the old downtown Bellingham charm (albeit with a little more neon).</p><br>
+                    <p>You are an “Edger,” a street-wise resident of Old Town. You know how to navigate the neon-lit alleys and establishments of your home turf, and you have a knack for finding trouble and opportunity. Like all residents, you have your own personal Stitch that lets you access the Net, a digital realm where data and secrets are stored and traded. You also have a crew, a group of friends who share your passion for adventure and rebellion.</p><br>
+                    <p>Your story begins on a typical night in Old Town. Your plan is the same as every night, nothing. You got a bunch of Tokens that you made from a previous gig and you're just looking for some fun, some trouble, some adventure. Maybe you'll hook up with some friends, maybe you'll piss off some enemies. Maybe you'll find fame, maybe you'll find death. Maybe you'll find something else entirely.</p><br>
+                    <p>You don't know what awaits you in Old Town. But you're ready to face it.</p><br>
+                </div>
+                <button id = "new" onclick = "window.location.href='game.html'">Enter</button>
+                <section id ="audioTag">
+                    <p>You Should Be My Hero - Hot Dad</p>
+                    <audio controls autoplay loop>
+                        <source src="audio/YouShouldBeMyHero.mp3" type="audio/mp3"> 
+                    </audio>
+                </section>
+        </main>
+        </div>
+        <script>
+            document.getElementById("plot").scrollTo(0,0);
+        </script>
+    </body>
+</html>

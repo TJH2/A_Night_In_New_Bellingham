@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>A Night In New Bellingham</title>
+        <meta charset="utf-8">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+    </head>
+    <body>
+        <div id = "container">
+            <header>
+                <h1>< A_NIGHT_IN_NEW_BELLINGHAM /></h1>
+            </header>
+            <main id="background">
+                <!-- Buttons Go Here -->
+                <img src="#" alt = "picture of current game event" id="image">
+                <div id = "holder">
+                    <div id = "stats"></div>
+                    <div id = "story"></div>
+                    <div id = "passcode">
+                        <input type = "text" id="answer">
+                        <button id="enter" onclick= checkAnswer()>Enter</button>
+                        <button id="giveUp" onclick = displayPage(currentEvent.getRight())>Give Up</button>
+                    </div>
+                    <div id="options">
+                        <button id="option1" onclick = displayPage(currentEvent.getLeft())></button>
+                        <button id="option2" onclick = displayPage(currentEvent.getRight())></button>
+                    </div>
+                    <div id="combat">
+                        <button onclick = battle()>Attack</button>
+                        <button onclick = heal()>JuiceBox</button>
+                        <button onclick = flee()>Flee</button>
+                    </div>
+                </div>
+                <div id="inputs">
+                    <label for="save">Save Game</label>
+                    <input type ="button" value="Save" id ="save">
+                    <label for ="upload">Load Game</label>
+                    <input type = "file" id ="upload">
+                </div>
+                <section id ="audioTag">
+                    <p id = "audioName"></p>
+                    <audio controls autoplay loop id="song">
+                        <source src="#" type="audio/mp3"> 
+                    </audio>
+                </section>
+        </main>
+        </div>
+        <!-- Divs for plots -->
+        <div id = "dream">
+            <p>Plot Text</p>
+            <button onclick = 'closeWindow("dream")''>Enter</button>
+        </div>
+        <div id = "reboot">
+            <h2>:/**~~GAME OVER~~**/:</h2>
+            <button onclick = reboot()>Reboot</button>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>

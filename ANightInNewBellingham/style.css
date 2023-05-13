@@ -1,0 +1,219 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "roboto", sans-serif;
+    background-color: purple;
+}
+
+#container {
+    margin: 10px auto;
+    padding: 10px;
+    background-image: url("images/bellingham.jpg");
+    background-repeat: no-repeat;
+    width: 1024px;
+    height: 97.5vh;
+    border: 5px solid black;
+    box-shadow: 5px 5px black;
+}
+
+header h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: black;
+    color: green;
+    border: 5px solid purple;
+    box-shadow: 5px 5px black;
+    opacity: 65%;
+}
+
+img {
+    float: left;
+    width: 495px;
+    border: 2px solid black;
+    display: block;
+}
+
+#holder {
+    width: 495px;
+    float: right;
+}
+
+#stats {
+    margin: 0 auto 5px auto;
+    padding: 5px;
+    width: 95%;
+    text-align: center;
+    background-color: black;
+    color: purple;
+    border: 5px solid purple;
+    opacity: 65%;
+}
+
+#stats p {
+    font-size: 12px;
+}
+
+#story {
+    margin: auto;
+    padding: 5px;
+    width: 95%;
+    height: 200px;
+    background-color: black;
+    color: green;
+    overflow-y:scroll;
+    border: 5px solid purple;
+    opacity: 65%;
+}
+
+#passcode, #combat {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 5px;
+}
+
+#answer {
+    padding: 5px;
+    margin: 10px;
+    width: 250px;
+    background-color: black;
+    color: green;
+}
+
+#passcode button, #combat button {
+    padding: 5px;
+    margin: 10px;
+    display: inline-block;
+}
+
+#options button {
+    padding: 5px;
+    margin: 10px auto; 
+    display: block;
+}
+
+#inputs {
+    position: fixed;
+    bottom: 12px;
+    right: 310px;
+    text-align: center;
+    
+}
+#inputs label {
+    padding: 5px;
+    margin: 5px;
+    color: green;
+    background-color: black;
+    border: 1px solid green;
+}
+
+#inputs label:hover {
+    color: purple;
+    border: 1px solid purple;
+}
+
+#inputs label:active {
+    padding: 7px;
+}
+
+#inputs input {
+    display: none;
+}
+
+#audioTag {
+    height: 60px;
+    width: 300px;
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    overflow: hidden;
+    background-color: black;
+    opacity: 80%;
+}
+
+#audioTag p {
+    padding: 2px;
+    text-align: center;
+    color: green;
+    white-space: nowrap;
+    animation: slide 10s infinite;
+}
+
+#audioTag audio {
+    width: 300px;
+}
+
+#dream {
+    padding: 10px;
+    width: 500px;
+    height:500px;
+    background-color: black;
+    color: green;
+    overflow-y: scroll;
+    position: fixed;
+    top: 50px;
+    left: 500px;
+    display: none;
+    border: 2px solid purple;
+}
+
+#reboot {
+    padding: 10px;
+    width: 500px;
+    height:500px;
+    background-color: black;
+    color: green;
+    overflow-y: scroll;
+    position: fixed;
+    top: 50px;
+    left: 500px;
+    border: 2px solid purple;
+    display: none;
+}
+
+#reboot button, #dream button {
+    margin: 5px auto;
+    padding: 5px;
+    display: block;
+}
+
+#reboot {
+    display: none;
+    text-align: center;
+}
+
+#reboot h2 {
+    font-size: 32px;
+    margin-top: 35%;
+    margin-bottom: 50px;
+    animation: gameOver 1s infinite;
+}
+
+@keyframes slide {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
+  }
+
+@keyframes battle {
+    0%   {transform: translateX(0%);}
+    25%  {transform: translateX(2%);}
+    50%  {transform: translateX(0%);}
+    75%  {transform: translateX(-2%);}
+    100% {transform: translateX(0%);}
+  }
+
+  .animate {
+    animation: battle 0.5s;
+  }
+
+  @keyframes gameOver {
+    0%  { visibility: visible; }
+    50% { visibility: hidden; }
+    75%  { visibility: hidden; }
+    100%  { visibility: visible; }
+  }
