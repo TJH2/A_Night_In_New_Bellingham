@@ -10,22 +10,26 @@
                 padding: 0px;
                 box-sizing: border-box;
             }
+
             body {
                 font-family: "roboto", sans-serif;
                 background-color: purple;
-                width: 100%;
-                height: 100%;
             }
-            div {
+
+            main {
                 margin: 10px auto;
                 padding: 10px;
                 background-image: url("images/bellingham.jpg");
                 background-repeat: no-repeat;
                 width: 1024px;
-                height: 97.5vh;
                 border: 5px solid black;
                 box-shadow: 5px 5px black;
             }
+
+            header {
+                margin: 10px;
+            }
+
             header h1 {
                 text-align: center;
                 padding: 5px;
@@ -38,8 +42,9 @@
 
             #plot {
                 padding: 10px;
+                margin: auto;
                 width: 500px;
-                height:500px;
+                height:425px;
                 background-image: none;
                 background-color: black;
                 color: green;
@@ -80,7 +85,6 @@
         </style>
     </head>
     <body>
-        <div>
             <header>
                 <h1>< A_NIGHT_IN_NEW_BELLINGHAM /></h1>
             </header>
@@ -101,7 +105,6 @@
                     </audio>
                 </section>
         </main>
-        </div>
         <script>
             document.getElementById("plot").scrollTo(0,0);
         </script>
