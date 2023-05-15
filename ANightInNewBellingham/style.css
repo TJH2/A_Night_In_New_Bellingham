@@ -15,9 +15,12 @@ body {
     background-image: url("images/bellingham.jpg");
     background-repeat: no-repeat;
     width: 1024px;
-    height: 97.5vh;
     border: 5px solid black;
     box-shadow: 5px 5px black;
+    display: inline-block;
+    position: absolute;
+     left: 50%;
+     transform: translateX(-50%);
 }
 
 header h1 {
@@ -106,7 +109,7 @@ img {
 }
 #inputs label {
     padding: 5px;
-    margin: 5px;
+    margin: 2px;
     color: green;
     background-color: black;
     border: 1px solid green;
