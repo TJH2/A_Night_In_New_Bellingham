@@ -192,8 +192,12 @@ img {
 
 #reboot h2 {
     font-size: 32px;
-    margin-top: 35%;
-    margin-bottom: 50px;
+    margin-top: 30%;
+    animation: gameOver 1s infinite;
+}
+
+#reboot p {
+    margin: 10px;
     animation: gameOver 1s infinite;
 }
 
