@@ -63,8 +63,8 @@ let enemy; // enemy object
          null, // option 1
          null, //option 2
          "code", // specialEvent
-         null, // success
-         null, // fail
+         "You Have Input The Correct Code Into The Garage!", // success
+         "Nothing Happens. Must Not Be The Right Code...", // fail
          "robot1", // Event Left
          "theLongjack", // Event right
          "garage.jpg", //image
