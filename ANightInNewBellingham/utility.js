@@ -64,11 +64,11 @@ function closeWindow(window) {
 
 function checkAnswer() {
     if(document.getElementById("answer").value == checkCode(eventName)) {
-        window.alert("Your Answer Is Correct");
+        window.alert(currentEvent.getSuccess());
         displayPage(currentEvent.getLeft());
     }
     else {
-        window.alert("Your Answer Is Incorrect");
+        window.alert(currentEvent.getFail());
     }
     document.getElementById("answer").value = "";
     return;
@@ -92,7 +92,7 @@ function battle() {
     let cAttack = characterAttack();
 
     if(enemy.getHP() <= 0) { // player kills enemy
-        combatLog = cAttack + "<br><p>It Was A Tough Fight, But You Made It!</p>";
+        combatLog = cAttack + "<br><p>" + currentEvent.getSuccess() + "</p>";
         normalView();
     }
     else {
@@ -100,6 +100,7 @@ function battle() {
     }
 
     if(character.getCurrentHP() <= 0) { // if enemy kills player
+        document.getElementById("rebootContent").innerHTML = "<h2>:/**~~GAME OVER~~**/:</h2><br><p>" + currentEvent.getFail() + "</p>";
         document.getElementById("reboot").style.display = "block";
         deadView();
     }
