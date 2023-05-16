@@ -2,8 +2,11 @@
 // VARAIBLES
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 let eventName = "start"; //name of current event
-let character = new Character(); // character object
 let enemy; // enemy object
+let character = new Character(); // character object
+
+//EQUIPMENT
+let bindle = new Equipment("Lightsaber", "Slash", "Cut", "Chop", 10, 25, 2, null);
 
 //HASHMAPS 
     const music = new Map(); //map for storing music
@@ -19,7 +22,7 @@ let enemy; // enemy object
     passcode.set("garage", 4321);
 
     //ENEMIES
-    let longjack = new Enemy("Long Jack", 10, 3, 3, "Hands", 25, 25, "Crushes", "Strangles", "Shreds");
+    let longjack = new Enemy("Long Jack", 10, 0, 3, "Hands", 25, "Crushes", "Strangles", "Shreds", bindle);
 
     //ENEMY FILL
     enemies.set("theLongJack", longjack);
@@ -38,7 +41,7 @@ let enemy; // enemy object
          null, // fail
          "JS", // Event Left
          "VR", // Event Right
-         "js.jpg", // image
+         "JS.jpg", // image
          "DrivingFastandUsingaCarPhonetoCallthePresentDay.mp3" // song
       );
 

@@ -1,23 +1,59 @@
 // GAME CLASSES -------------------------------------------------------------------------------------------------------------------------------
 
+// EQUIPMNET CLASS
+class Equipment {
+    constructor(weapon, attack1, attack2, attack3, damage, tokens, JB, misc) {
+       this.weapon = weapon;
+       this.attack = new Array();
+       this.attack[0] = attack1;
+       this.attack[1] = attack2;
+       this.attack[2] = attack3;
+       this.damage = damage;
+       this.tokens = tokens;
+       this.JB = JB;
+       this.misc = misc;
+    }
+    //Accessors
+    getWeapon() {return this.weapon;}
+    getAttack(i) {return this.attack[i];}
+    getAttackLength() {return this.attack.length;}
+    getDamage() { return this.damage;}
+    getTokens() {return this.tokens;}
+    getJB() {return this.JB;}
+    getAttack1() {return this.attack[0];}
+    getAttack2() {return this.attack[1];}
+    getAttack3() {return this.attack[2];}
+
+    //Mutators
+    setWeapon(weapon) {this.weapon = weapon;}
+    setAttacks(attack1, attack2, attack3) {
+        this.attack[0] = attack1;
+        this.attack[1] = attack2;
+        this.attack[2] = attack3;
+    }
+    setDamage(damage) {this.damage = damage;}
+    setTokens(tokens) {this.tokens = tokens;}
+    setJB(JB) {this.JB = JB;}
+
+    addTokens(tokens) {
+        this.tokens += tokens;
+    }
+
+}
+
+let equipment = new Equipment("Street Fighting", "Kick", "Punch", "Bite", 5, 100, 5, null); // equipment object
+
+
 // CHARACTER CLASS
 class Character {
     constructor() {
        this.maxHP = 10;
        this.currentHP = 10;
-       this.weapon = "Navy Ninja Skills";
-       this.attack = new Array();
-       this.attack[0] = "Punch";
-       this.attack[1] = "Crane Kick";
-       this.attack[2] = "Bite";
-       this.weaponDamage = 6;
        this.muscle = 0;
        this.edge = 0;
-       this.wits = 0;
        this.xp = 0; // character experience
        this.lvl = 1;
-       this.tokens = 100;
-       this.JB = 5;
+       this.equipment = equipment;
     } // end of constructor
 
   //CHARACTER ACCESSORS
@@ -25,23 +61,16 @@ class Character {
     getCurrentHP() {return this.currentHP;}
     getMuscle() {return this.muscle;}
     getEdge() {return this.edge;}
-    getWits() {return this.wits;}
     getXP() {return this.xp;}
     getLevel() {return this.lvl;}
-    getJB() {return this.JB;}
-    getTokens() {return this.tokens;}
-    getWeapon() {return this.weapon;}
-    getAttack1() {return this.attack[0];}
-    getAttack2() {return this.attack[1];}
-    getAttack3() {return this.attack[2];}
 
     getAttack() { 
-        let number = Math.floor(Math.random() * this.attack.length);
-        return this.attack[number];}
+        let number = Math.floor(Math.random() * this.equipment.getAttackLength());
+        return this.equipment.getAttack(number);}
     
 
     dealDamage() {
-    let number = Math.floor(Math.random() * this.weaponDamage) + this.muscle + 1;
+    let number = Math.floor(Math.random() * this.equipment.getDamage()) + this.muscle + 1;
     return number;}
 
     hitChance() {
@@ -66,38 +95,41 @@ class Character {
                         }
     setMuscle(muscle) {this.muscle = muscle;}
     setEdge(edge) {this.edge = edge;}
-    setWits(wits) {this.wits = wits;}
     setXP(xp) {this.xp = xp;}
     setLevel(lvl) {this.lvl = lvl;}
-    setJB(JB) {this.JB = JB;}
-    setTokens(tokens) {this.tokens = tokens;}
-    setWeapon(weapon) {this.weapon = weapon;}
-    setAttack1(attack) {this.attack[0] = attack;}
-    setAttack2(attack) {this.attack[1] = attack;}
-    setAttack3(attack) {this.attack[2] = attack;}
+
+    addXP(XP) {
+        this.xp += XP;
+        if(this.xp >= 100) {
+            this.xp = this.xp - 100;
+            let number = Math.floor(Math.random() * 2);
+            let announcement = "You Have Leveled Up!\n"
+            if(number == 0) {
+                    this.muscle++;
+                    announcement += "Your Muscle Has Increased By 1.";
+            }
+            else {
+                    announcement += "Your Edge Has Increased By 1.";
+                    this.edge++;
+            }
+            window.alert(announcement);
+        }
+    }
 
  // ---------------------------------------------------------------------------------------
 
     heal() {
     this.currentHP = this.maxHP;
-    this.JB--;
+    this.equipment.setJB(this.equipment.getJB() - 1);
  }
 
     restock() {
     this.currentHP = this.maxHP;
-    this.JB = this.JB + 5;
+    this.equipment.setJB(5 + this.equipment.getJB());
  }
  
     takeDamage(damage) {
     this.currentHP = this.currentHP - damage;
- }
-
-    xpIncrease(XP) {
-    this.xp = this.xp + XP;
- }
-
-    tokensIncrease(tokens) {
-    this.tokens = this.tokens + tokens;
  }
 }
 
@@ -161,26 +193,24 @@ class Event {
 
 // ENEMY CLASS
  class Enemy {
-    constructor(name, HP, damage, edge, weapon, tokens, XP, a1, a2, a3) {
+    constructor(name, HP, damage, edge, weapon, XP, a1, a2, a3, equipment) {
        this.name = name;
        this.HP = HP;
        this.damage = damage;
        this.edge = edge;
        this.weapon = weapon;
-       this.tokens = tokens;
        this.XP = XP;
        this.attack = new Array();
        this.attack[0] = a1;
        this.attack[1] = a2;
        this.attack[2] = a3;
+       this.equipment = equipment;
     }
 
     //ACCESSORS
     getName() { return this.name;}
 
     getHP() { return this.HP; }
-
-    getTokens() { return this.tokens; }
 
     getXP() { return this.XP; }
 

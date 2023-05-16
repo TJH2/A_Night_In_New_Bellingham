@@ -18,13 +18,10 @@ character.setMaxHP(Number(array[2].trim()));
 character.setCurrentHP(Number(array[3].trim()));
 character.setMuscle(Number(array[4].trim()));
 character.setEdge(Number(array[5].trim()));
-character.setWits(Number(array[6].trim()));
-character.setJB(Number(array[7].trim()));
-character.setTokens(Number(array[8].trim()));
-character.setWeapon(array[9].trim());
-character.setAttack1(array[10].trim());
-character.setAttack2(array[11].trim());
-character.setAttack3(array[12].trim());
+character.equipment.setJB(Number(array[6].trim()));
+character.equipment.setTokens(Number(array[7].trim()));
+character.equipment.setWeapon(array[8].trim());
+character.equipment.setAttacks(array[9].trim(), array[10].trim(), array[11].trim());
 
 displayPage(eventName);
 }
@@ -35,19 +32,18 @@ displayPage(eventName);
     let save = document.getElementById("save");
     save.addEventListener("click", () => {
     if(window.confirm("Are You Sure You Want To Save Your Game?")) {
-        const content = "/* ORDER: Event Name, Max HP, Current HP, Muscle, Edge, Wits, JuiceBoxes, Tokens, Weapon, Attack1, Attack2, Attack3 */\n" +
+        const content = "/* ORDER: Event Name, Max HP, Current HP, Muscle, Edge, JuiceBoxes, Tokens, Weapon, Attack1, Attack2, Attack3 */\n" +
         eventName + "\n" +
         character.getMaxHP() + "\n" +
         character.getCurrentHP() + "\n" +
         character.getMuscle() + "\n" +
         character.getEdge() + "\n" +
-        character.getWits() + "\n" +
-        character.getJB() + "\n" +
-        character.getTokens() + "\n" +
-        character.getWeapon() + "\n" +
-        character.getAttack1() + "\n" +
-        character.getAttack2() + "\n" +
-        character.getAttack3();
+        character.equipment.getJB() + "\n" +
+        character.equipment.getTokens() + "\n" +
+        character.equipment.getWeapon() + "\n" +
+        character.equipment.getAttack1() + "\n" +
+        character.equipment.getAttack2() + "\n" +
+        character.equipment.getAttack3();
 
         const link = document.createElement("a"); // creates a tag
 
@@ -65,6 +61,7 @@ function closeWindow(window) {
 function checkAnswer() {
     if(document.getElementById("answer").value == checkCode(eventName)) {
         window.alert(currentEvent.getSuccess());
+        character.addXP(100);
         displayPage(currentEvent.getLeft());
     }
     else {
@@ -92,9 +89,14 @@ function battle() {
     let cAttack = characterAttack();
 
     if(enemy.getHP() <= 0) { // player kills enemy
+        character.equipment.addTokens(enemy.equipment.getTokens());
+        character.addXP(enemy.getXP());
+        character.equipment.setJB(enemy.equipment.getJB() + character.equipment.getJB());
         combatLog = cAttack + "<br><p>" + currentEvent.getSuccess() + "</p>";
+        upgrade();
         normalView();
     }
+    
     else {
         combatLog = cAttack + "<br>" + enemyAttack();
     }
@@ -114,16 +116,16 @@ function battle() {
 function heal() {
     let combatLog;
 
-    if(character.getCurrentHP() < character.getMaxHP() && character.getJB() != 0) { //if able to use cartridge
+    if(character.getCurrentHP() < character.getMaxHP() && character.equipment.getJB() != 0) { //if able to use cartridge
         character.heal();
-        combatLog = "<p>You Expend One Of Your Cartridges And Heal</p>";
+        combatLog = "<p>You Expend One Of Your JuiceBoxes And Heal</p>";
     }
     else {
         if(character.getCurrentHP() == character.getMaxHP()) { // if already at full health
             combatLog = "<p>You Are At Full Health.</p>";
         }
-        else if(character.getJB() == 0) { // if out of cartridges
-            combatLog = "<p>You Are Out Of Cartridges...</p>";
+        else if(character.equipment.getJB() == 0) { // if out of cartridges
+            combatLog = "<p>You Are Out Of JuiceBoxes...</p>";
         }
     }
 
@@ -133,7 +135,6 @@ function heal() {
         document.getElementById("reboot").style.display = "block";
         deadView();
     }
-
     stats();
     return;
 }
@@ -158,17 +159,16 @@ function flee() {
     return;
 }
 
-
 //character ATTACK METHOD
 function characterAttack() {
     let combatLog;
     let damage = character.dealDamage();
     if(enemy.dodgeChance() < character.hitChance()) {
         enemy.takeDamage(damage);
-        combatLog = "<p>You " + character.getAttack() + " " + enemy.getName() +  " With Your " + character.getWeapon() +  " For " + damage + " Damage</p>";
+        combatLog = "<p>You " + character.getAttack() + " " + enemy.getName() +  " With Your " + character.equipment.getWeapon() +  " For " + damage + " Damage</p>";
     }
     else {
-        combatLog = "<p>You Attempt To " + character.getAttack() + " " + enemy.getName() +  " With Your " + character.getWeapon() +  " But Miss</p>";
+        combatLog = "<p>You Attempt To " + character.getAttack() + " " + enemy.getName() +  " With Your " + character.equipment.getWeapon() +  " But Miss</p>";
     }
     return combatLog;
     }
@@ -189,11 +189,36 @@ function enemyAttack() {
     return combatLog;
     }
 
+    // METHOD FOR IF PLAYER WINS COMBAT
+    function win() {
+        character.equipment.addTokens(enemy.getTokens());
+        character.addXP(enemy.getXP());
+    }
+
+    function upgrade() {
+    
+        let victory = currentEvent.getSuccess() + "\n\nYour Reward:\n"+ enemy.getXP() + " XP\n" + enemy.equipment.getTokens() + " Tokens\n" + enemy.equipment.getJB() + " JuiceBoxes";
+        if(enemy.equipment.getWeapon() != null && enemy.equipment.getWeapon() != character.equipment.getWeapon()) {
+            victory += "\n\nWhile Pilfering The " + enemy.getName() +"'s Belongings You Find A " + enemy.equipment.getWeapon() + 
+            ". It Looks Interesting, But Is It Better Than Your " + character.equipment.getWeapon() + "?\n\n" +
+            "*Replace Current Weapon?*";
+            if(window.confirm(victory)) {
+                character.equipment.setWeapon(enemy.equipment.getWeapon());
+                character.equipment.setDamage(enemy.equipment.getDamage());
+                character.equipment.setAttacks(enemy.equipment.getAttack1(), enemy.equipment.getAttack2(), enemy.equipment.getAttack3());
+            }
+        }
+        else {
+            window.alert(victory);
+        }
+        
+    }
+
     // ------------------------------------------------------------------------------------------------------------------------------------------------//
     // REFRESH METHODs
     // -----------------------------------------------------------------------------------------------------------------------------------------------//
     function stats() {
-        document.getElementById("stats").innerHTML = "<p>HP: " + character.getCurrentHP() + " Wits: " + character.getWits() + " Edge: " + character.getEdge() + " Muscle: " + character.getMuscle() +" JuiceBoxes: " + character.getJB() + " Tokens: " + character.getTokens() + " XP: " + character.getXP() + " Level: " + character.getLevel() + "</p>";
+        document.getElementById("stats").innerHTML = "<p> | HP: " + character.getCurrentHP() + " | Edge: " + character.getEdge() + " | Muscle: " + character.getMuscle() +" | JuiceBoxes: " + character.equipment.getJB() + " | Tokens: " + character.equipment.getTokens() + " | XP: " + character.getXP() + " | Level: " + character.getLevel() + " |</p>";
     }
 
     function displayPage(event) {
