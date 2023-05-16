@@ -102,6 +102,7 @@ class Character {
         this.xp += XP;
         if(this.xp >= 100) {
             this.xp = this.xp - 100;
+            this.lvl++;
             let number = Math.floor(Math.random() * 2);
             let announcement = "You Have Leveled Up!\n"
             if(number == 0) {
