@@ -82,6 +82,24 @@
                 animation: slide 10s infinite;
             }
 
+
+            #about a {
+                padding: 5px;
+                font-weight: bold;
+                background-color: black;
+                color: purple;
+                text-decoration: none;
+                border: 2px solid purple;
+            }
+
+            #about a:hover {
+                box-shadow: 2px 2px black;
+            }
+
+            #about a:active {
+                padding: 7px;
+            }
+
             @keyframes slide {
                 from { transform: translateX(100%); }
                 to { transform: translateX(-100%); }
@@ -108,6 +126,7 @@
                         <source src="audio/YouShouldBeMyHero.mp3" type="audio/mp3"> 
                     </audio>
                 </section>
+                <p id = "about"><a href="about.html" target="about">About Us</a></p>
         </main>
         <script>
             document.getElementById("plot").scrollTo(0,0);

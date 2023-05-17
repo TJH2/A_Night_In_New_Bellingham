@@ -165,7 +165,7 @@ function characterAttack() {
     let damage = character.dealDamage();
     if(enemy.dodgeChance() < character.hitChance()) {
         enemy.takeDamage(damage);
-        combatLog = "<p>You " + character.getAttack() + " " + enemy.getName() +  " With Your " + character.equipment.getWeapon() +  " For " + damage + " Damage</p>";
+        combatLog = "<p>You " + character.getAttack() + " " + enemy.getName() +  " With " + character.equipment.getWeapon() +  " For " + damage + " Damage</p>";
     }
     else {
         combatLog = "<p>You Attempt To " + character.getAttack() + " " + enemy.getName() +  " With Your " + character.equipment.getWeapon() +  " But Miss</p>";

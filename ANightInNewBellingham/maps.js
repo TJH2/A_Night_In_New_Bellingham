@@ -5,7 +5,8 @@ let eventName = "start"; //name of current event
 let enemy; // enemy object
 let character = new Character(); // character object
 
-//EQUIPMENT
+//EQUIPMENT - Weapon, Attack1, Attack2, Attack 3, Damage, Tokens, JB, Misc
+let roBox = new Equipment("A Detached Arm", "Bash", "Crush", "Smack", 5, 10, 1, null);
 let bindle = new Equipment("Lightsaber", "Slash", "Cut", "Chop", 10, 25, 2, null);
 
 //HASHMAPS 
@@ -14,18 +15,21 @@ let bindle = new Equipment("Lightsaber", "Slash", "Cut", "Chop", 10, 25, 2, null
     const enemies = new Map(); // map For storing enemies
     const passcode = new Map(); // map for storing passcodes
 
-    //MUSIC FILL
+    //MUSIC FILL - Song File, Song Name
     music.set("DrivingFastandUsingaCarPhonetoCallthePresentDay.mp3", "Driving Fast And Using A Car Phone To Call The Present Day - Hot Dad");
     music.set("Elon_Musk_Hot_Dad.mp3", "Elon Musk - Hot Dad");
     music.set("YouShouldBeMyHero.mp3", "You Should Be My Hero - Hot Dad");
-    //PASSCODE FILL
+    
+    //PASSCODE FILL - Event Name, code answer
     passcode.set("garage", 4321);
 
-    //ENEMIES
-    let longjack = new Enemy("Long Jack", 10, 0, 3, "Hands", 25, "Crushes", "Strangles", "Shreds", bindle);
+    //ENEMIES - Name, Health, Damage, Edge, XP, Weapon, Attack1, Attack2, Attack3, Equipment
+    let robot = new Enemy("PN0K.IO", 10, 2, 2, 25, "Mechanical Arm", "Grab", "Punch", "Smash", roBox)
+    let longjack = new Enemy("Long Jack", 10, 3, 3, 25, "Hands", "Crushes", "Strangles", "Shreds", bindle);
 
-    //ENEMY FILL
+    //ENEMY FILL - Event Name, Enemy Node
     enemies.set("theLongJack", longjack);
+    enemies.set("robotBattle", robot);
 
     //TJ EVENTS ---------------------------------------------------------------------------------------------------------------------------------------------------------//
     let start = 
@@ -69,7 +73,7 @@ let bindle = new Equipment("Lightsaber", "Slash", "Cut", "Chop", 10, 25, 2, null
          "You Have Input The Correct Code Into The Garage!", // success
          "Nothing Happens. Must Not Be The Right Code...", // fail
          "robot1", // Event Left
-         "theLongjack", // Event right
+         null, // Event right
          "garage.jpg", //image
          null // song
       );
@@ -86,7 +90,7 @@ let bindle = new Equipment("Lightsaber", "Slash", "Cut", "Chop", 10, 25, 2, null
          null, // success
          null, // fail
          "robot2", // event Left
-         "theLongJack", // event right
+         "robotBattle", // event right
          "robot.jpg", // image
          null // song
       );
@@ -100,7 +104,7 @@ let bindle = new Equipment("Lightsaber", "Slash", "Cut", "Chop", 10, 25, 2, null
          null, // success
          null, // fail
          "robot3", // event left
-         "theLongJack", // event right
+         "robotBattle", // event right
          "robot.jpg", // image
          null // song
       );
@@ -114,7 +118,7 @@ let bindle = new Equipment("Lightsaber", "Slash", "Cut", "Chop", 10, 25, 2, null
          null, // success
          null, // fail
          "robot4", // event left
-         "theLongJack", // right
+         "robotBattle", // right
          "robot.jpg", // image
          null // song
       );
@@ -128,10 +132,25 @@ let bindle = new Equipment("Lightsaber", "Slash", "Cut", "Chop", 10, 25, 2, null
          null, // success
          null, // fail
          "theLongJack", // event Left
-         "theLongJack", // event right
+         "robotBattle", // event right
          "robot.jpg", // image
          null // song
       );
+
+      let robotBattle =
+      new Event(
+         "<p>The robot unleashes itself from the ceiling and attacks you with its lone functional arm when you try to pull its cord.</p><br>" +
+         "<p>PN0K.IO - \"<em>Y-y-you won't trick m-me again doc...</em>\"</p>",
+         "Option 1", // option 1
+         "Option 2", //option 2
+         "combat", // specialEvent
+         "The broken and battered shell of the robot clatters to the ground and the green lights fade from its eyes. You need to take a breather and figure out your next move.", // success
+         "KILLED IN COMBAT BY PN0K.IO", // fail
+         null, // event Left
+         null, // event right
+         "robot.jpg", // image
+         "YouShouldBeMyHero.mp3" // song
+         );
 
       let theLongJack =
       new Event(
@@ -147,7 +166,7 @@ let bindle = new Equipment("Lightsaber", "Slash", "Cut", "Chop", 10, 25, 2, null
          "YouShouldBeMyHero.mp3" // song
          );
     
-        // TJ FILL
+        // TJ FILL - Event Name (this is where you decide the name), Event Node
         events.set("start", start);
         events.set("JS", JS);
         events.set("garage", garage);
@@ -155,6 +174,7 @@ let bindle = new Equipment("Lightsaber", "Slash", "Cut", "Chop", 10, 25, 2, null
         events.set("robot2", robot2);
         events.set("robot3", robot3);
         events.set("robot4", robot4);
+        events.set("robotBattle", robotBattle);
         events.set("theLongJack", theLongJack);
 
       // DAV EVENTS --------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -187,7 +207,7 @@ let bindle = new Equipment("Lightsaber", "Slash", "Cut", "Chop", 10, 25, 2, null
          null, // fail
          null, // Event Left
          null, // Event Right
-         "cyberpig.jpg",
+         "cyberpig.jpg",  // image
          null // song
       );
 

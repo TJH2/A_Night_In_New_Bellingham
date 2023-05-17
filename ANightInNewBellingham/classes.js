@@ -107,12 +107,15 @@ class Character {
             let announcement = "You Have Leveled Up!\n"
             if(number == 0) {
                     this.muscle++;
-                    announcement += "Your Muscle Has Increased By 1.";
+                    this.maxHP++;
+                    announcement += "Your Muscle And Health Have Increased By 1.";
             }
             else {
                     announcement += "Your Edge Has Increased By 1.";
                     this.edge++;
             }
+
+            this.currentHP = this.maxHP;
             window.alert(announcement);
         }
     }
@@ -194,13 +197,13 @@ class Event {
 
 // ENEMY CLASS
  class Enemy {
-    constructor(name, HP, damage, edge, weapon, XP, a1, a2, a3, equipment) {
+    constructor(name, HP, damage, edge,  XP, weapon, a1, a2, a3, equipment) {
        this.name = name;
        this.HP = HP;
        this.damage = damage;
        this.edge = edge;
-       this.weapon = weapon;
        this.XP = XP;
+       this.weapon = weapon;
        this.attack = new Array();
        this.attack[0] = a1;
        this.attack[1] = a2;

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>A Night In New Bellingham: About US</title>
+        <meta charset="utf-8">
+        <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+        <link rel="manifest" href="favicon/site.webmanifest">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <style>
+            * {
+                margin: 0px;
+                padding: 0px;
+                box-sizing: border-box;
+                overflow: none;
+            }
+            body {
+                font-family: "roboto", sans-serif;
+                background-color: purple;
+            }
+
+            main {
+                margin: 10px auto;
+                padding: 10px;
+                background-image: url("images/bellingham.jpg");
+                background-repeat: no-repeat;
+                width: 1024px;
+                border: 5px solid black;
+                box-shadow: 5px 5px black;
+                overflow: hidden;
+            }
+
+            header {
+                margin: 10px;
+            }
+
+            header h1 {
+                text-align: center;
+                padding: 5px;
+                background-color: black;
+                color: green;
+                border: 5px solid purple;
+                box-shadow: 5px 5px black;
+                opacity: 65%;
+            }
+
+            #image {
+                margin: auto;
+                width: 475px;
+                height: 320px;
+                border: 2px solid purple;
+                display: block;
+            }
+
+            figcaption {
+                margin: 2px auto;
+                padding: 2px;
+                width: 475px;
+                background-color: black;
+                color: green;
+                border: 2px solid purple;
+                text-align: center;
+                opacity: 80%;
+                font-style:italic;
+            }
+
+            #blurb {
+                padding: 10px;
+                margin: auto;
+                width: 475px;
+                height:150px;
+                background-image: none;
+                background-color: black;
+                color: green;
+                overflow-y: scroll;
+                border: 2px solid purple;
+                opacity: 80%;
+            }
+
+            #audioTag {
+                height: 60px;
+                width: 300px;
+                position: fixed;
+                bottom: 5px;
+                right: 5px;
+                overflow: hidden;
+                background-color: black;
+                opacity: 80%;
+            }
+
+            #audioTag p {
+                padding: 2px;
+                text-align: center;
+                color: green;
+                white-space: nowrap;
+                animation: slide 10s infinite;
+            }
+
+            @keyframes slide {
+                from { transform: translateX(100%); }
+                to { transform: translateX(-100%); }
+            }
+
+            .animate {
+                animation: slideForward 15s infinite;
+            }
+
+            @keyframes slideForward {
+                0% { transform: translateX(-100%); }
+                25% { transform: translateX(0%); }
+                50% { transform: translateX(0%); }
+                75% { transform: translateX(0%); }
+                100% { transform: translateX(100%); }
+            }
+
+        </style>
+    </head>
+    <body>
+            <header>
+                <h1>< A_NIGHT_IN_NEW_BELLINGHAM: ABOUT_US /></h1>
+            </header>
+            <main>
+                <div id = "container">
+                    <figure>
+                    <img src = "" alt="Information About Creators" id = "image">
+                    <figcaption id = "caption"></figcaption>
+                    </figure>
+                    <div id = "blurb">
+                        <p></p>
+                </div>
+            </div>
+                <section id ="audioTag">
+                    <p>Elon Musk - Hot Dad</p>
+                    <audio controls autoplay loop>
+                        <source src="audio/Elon_Musk_Hot_Dad.mp3" type="audio/mp3"> 
+                    </audio>
+                </section>
+        </main>
+        <script>
+            let counter = 1;
+            let image = "images/warlock.jpg";
+            let blurb = "<p>Blurb about Jake</p>";
+            let caption = "Project Lead: T. Jake Holmes II";
+
+            document.getElementById("blurb").scrollTo(0,0);
+            document.getElementById("container").classList.add("animate");
+
+            document.getElementById("image").src = image; // sets picture
+            document.getElementById("blurb").innerHTML = blurb; // sets blurb
+            document.getElementById("caption").innerText = caption;
+
+    setInterval(function(){
+        if(image == "images/warlock.jpg") {
+            image = "images/JS.jpg";
+            blurb = "<p>Blurb about Jaspreet</p>";
+            caption = "Not-Project Lead: Jaspreet K.";
+        }
+        else if(image == "images/JS.jpg") {
+            image = "images/kobold.jpg";
+            blurb = "<p>Blurb about David</p>";
+            caption = "Not-Project Lead: David R-H";
+        }
+        else {
+            image = "images/warlock.jpg";
+            blurb = "<p>Blurb about Jake</p>";
+            caption = "Project Lead: T. Jake Holmes II"; 
+        }
+
+        document.getElementById("image").src = image;
+        document.getElementById("blurb").innerHTML = blurb; // sets blurb
+        document.getElementById("caption").innerText = caption;
+    }, 15000);
+        </script>
+
+    </body>
+</html>
