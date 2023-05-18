@@ -102,8 +102,11 @@
                 to { transform: translateX(-100%); }
             }
 
-            .animate {
+            .animate1 {
                 animation: slideForward 15s infinite;
+            }
+            .animate2 {
+                animation: slideBackward 15s infinite;
             }
 
             @keyframes slideForward {
@@ -112,6 +115,14 @@
                 50% { transform: translateX(0%); }
                 75% { transform: translateX(0%); }
                 100% { transform: translateX(100%); }
+            }
+
+            @keyframes slideBackward {
+                0% { transform: translateX(100%); }
+                25% { transform: translateX(0%); }
+                50% { transform: translateX(0%); }
+                75% { transform: translateX(0%); }
+                100% { transform: translateX(-100%); }
             }
 
         </style>
@@ -138,38 +149,99 @@
                 </section>
         </main>
         <script>
-            let counter = 1;
-            let image = "images/warlock.jpg";
-            let blurb = "<p>Blurb about Jake</p>";
-            let caption = "Project Lead: T. Jake Holmes II";
+            // User defined class node
+            class Node {
+                // constructor
+                constructor(image, caption, blurb)
+                {
+                    this.image = image;
+                    this.caption = caption;
+                    this.blurb = blurb;
+                    this.next = null
+                    this.previous = null
+                }
+            }
 
-            document.getElementById("blurb").scrollTo(0,0);
-            document.getElementById("container").classList.add("animate");
+        // linkedlist class
+        class LinkedList {
+            constructor() {
+            this.head = null;
+            this.size = 0;
+            }
+ 
+            //add(image, caption, blurb)
+            add(image, caption, blurb) {
+                // creates a new node
+                let node = new Node(image, caption, blurb);
+ 
+                // to store current node
+                let current;
+ 
+                // if list is Empty add the
+                // element and make it head
+                if (this.head == null) {
+                    this.head = node;
+                }
+                else {
+                current = this.head;
+ 
+                    while (current.next) {
+                    current = current.next;
+                    }
+ 
+                    current.next = node;
+                    current.next.previous = current;
+                }
+                this.size++;
+            }
 
-            document.getElementById("image").src = image; // sets picture
-            document.getElementById("blurb").innerHTML = blurb; // sets blurb
-            document.getElementById("caption").innerText = caption;
+            //Moving through LL
+            setHead(node) {this.head = node ;}
 
+        }
+
+        let root = new LinkedList();
+        let forward = true;
+
+        root.add("images/warlock.jpg", "Project Lead: T. Jake Holmes II", "<p>Blurb about Jake</p>");
+        root.add("#", "Jaspreet K", "<p>Blurb about Jaspreet</p>");
+        root.add("#", "David R-H", "<p>Blurb about David</p>");
+
+        document.getElementById("image").src = root.head.image; // sets picture
+        document.getElementById("caption").innerText = root.head.caption; // sets caption
+        document.getElementById("blurb").innerHTML = root.head.blurb; // sets blurb
+
+
+
+        document.getElementById("blurb").scrollTo(0,0);
+        document.getElementById("container").classList.add("animate1");
+
+            
     setInterval(function(){
-        if(image == "images/warlock.jpg") {
-            image = "images/JS.jpg";
-            blurb = "<p>Blurb about Jaspreet</p>";
-            caption = "Not-Project Lead: Jaspreet K.";
-        }
-        else if(image == "images/JS.jpg") {
-            image = "images/kobold.jpg";
-            blurb = "<p>Blurb about David</p>";
-            caption = "Not-Project Lead: David R-H";
-        }
-        else {
-            image = "images/warlock.jpg";
-            blurb = "<p>Blurb about Jake</p>";
-            caption = "Project Lead: T. Jake Holmes II"; 
-        }
 
-        document.getElementById("image").src = image;
-        document.getElementById("blurb").innerHTML = blurb; // sets blurb
-        document.getElementById("caption").innerText = caption;
+            if(forward == true) {
+                if(root.head.next != null) {
+                root.head = root.head.next;
+                }
+                else { 
+                    forward = false;
+                    document.getElementById("container").classList.remove("animate1");
+                    document.getElementById("container").classList.add("animate2"); 
+                }
+            }
+            else {
+                if(root.head.previous != null) {
+                    root.head = root.head.previous;
+                }
+                else {
+                    forward = true;
+                    document.getElementById("container").classList.remove("animate2");
+                    document.getElementById("container").classList.add("animate1"); 
+                }
+            }
+            document.getElementById("image").src = root.head.image; // sets picture
+            document.getElementById("caption").innerText = root.head.caption; // sets caption
+            document.getElementById("blurb").innerHTML = root.head.blurb; // sets blurb
     }, 15000);
         </script>
 
