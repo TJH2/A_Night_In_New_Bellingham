@@ -18,10 +18,10 @@ character.setMaxHP(Number(array[2].trim()));
 character.setCurrentHP(Number(array[3].trim()));
 character.setMuscle(Number(array[4].trim()));
 character.setEdge(Number(array[5].trim()));
-character.equipment.setJB(Number(array[6].trim()));
-character.equipment.setTokens(Number(array[7].trim()));
-character.equipment.setWeapon(array[8].trim());
-character.equipment.setAttacks(array[9].trim(), array[10].trim(), array[11].trim());
+character.setJB(Number(array[6].trim()));
+character.setTokens(Number(array[7].trim()));
+character.setWeapon(array[8].trim());
+character.setAttacks(array[9].trim(), array[10].trim(), array[11].trim());
 
 displayPage(eventName);
 }
@@ -38,12 +38,12 @@ displayPage(eventName);
         character.getCurrentHP() + "\n" +
         character.getMuscle() + "\n" +
         character.getEdge() + "\n" +
-        character.equipment.getJB() + "\n" +
-        character.equipment.getTokens() + "\n" +
-        character.equipment.getWeapon() + "\n" +
-        character.equipment.getAttack1() + "\n" +
-        character.equipment.getAttack2() + "\n" +
-        character.equipment.getAttack3();
+        character.getJB() + "\n" +
+        character.getTokens() + "\n" +
+        character.weapon.getWeapon() + "\n" +
+        character.weapon.getAttack1() + "\n" +
+        character.weapon.getAttack2() + "\n" +
+        character.weapon.getAttack3();
 
         const link = document.createElement("a"); // creates a tag
 
@@ -53,9 +53,11 @@ displayPage(eventName);
     }
 });
 
-// function for closing first game plot
+// function for closing dream window
 function closeWindow(window) {
     document.getElementById(window).style.display = "none";
+    document.getElementById("dreamText").innerText = "";
+    document.getElementById("startDream").style.display = "none";
     }
 
 function checkAnswer() {
@@ -89,9 +91,10 @@ function battle() {
     let cAttack = characterAttack();
 
     if(enemy.getHP() <= 0) { // player kills enemy
-        character.equipment.addTokens(enemy.equipment.getTokens());
+        enemy.heal(); // heals enemy back up to full health incase you fight them again in the same playthrough
+        character.setTokens(enemy.equipment.getTokens() + character.getTokens());
         character.addXP(enemy.getXP());
-        character.equipment.setJB(enemy.equipment.getJB() + character.equipment.getJB());
+        character.setJB(enemy.equipment.getJB() + character.getJB());
         combatLog = cAttack + "<br><p>" + currentEvent.getSuccess() + "</p>";
         upgrade();
         normalView();
@@ -101,14 +104,10 @@ function battle() {
         combatLog = cAttack + "<br>" + enemyAttack();
     }
 
-    if(character.getCurrentHP() <= 0) { // if enemy kills player
-        document.getElementById("rebootContent").innerHTML = "<h2>:/**~~GAME OVER~~**/:</h2><br><p>" + currentEvent.getFail() + "</p>";
-        document.getElementById("reboot").style.display = "block";
-        deadView();
-    }
 
     document.getElementById("story").innerHTML = combatLog;
 
+    checkLife(character.getCurrentHP());
     stats();
     return;
 }
@@ -116,7 +115,7 @@ function battle() {
 function heal() {
     let combatLog;
 
-    if(character.getCurrentHP() < character.getMaxHP() && character.equipment.getJB() != 0) { //if able to use cartridge
+    if(character.getCurrentHP() < character.getMaxHP() && character.getJB() != 0) { //if able to use cartridge
         character.heal();
         combatLog = "<p>You Expend One Of Your JuiceBoxes And Heal</p>";
     }
@@ -124,17 +123,14 @@ function heal() {
         if(character.getCurrentHP() == character.getMaxHP()) { // if already at full health
             combatLog = "<p>You Are At Full Health.</p>";
         }
-        else if(character.equipment.getJB() == 0) { // if out of cartridges
+        else if(character.getJB() == 0) { // if out of cartridges
             combatLog = "<p>You Are Out Of JuiceBoxes...</p>";
         }
     }
 
     document.getElementById("story").innerHTML = combatLog + "<br>" + enemyAttack();
 
-    if(character.getCurrentHP() <= 0) { // if enemy kills player
-        document.getElementById("reboot").style.display = "block";
-        deadView();
-    }
+    checkLife(character.getCurrentHP()); //if enemy kills hero
     stats();
     return;
 }
@@ -143,11 +139,7 @@ function flee() {
     if(character.hitChance() - enemy.getEdge() <= 10) {
 
         document.getElementById("story").innerHTML = "</p>You Attempt To Flee Unsucessfully</p>" + "<br>" + enemyAttack();
-
-        if(character.getCurrentHP() <= 0) { // if enemy kills player
-            document.getElementById("reboot").style.display = "block";
-            deadView();
-        }
+        checkLife(character.getCurrentHP()); //if enemy kills hero
     }
     
     else {
@@ -165,10 +157,10 @@ function characterAttack() {
     let damage = character.dealDamage();
     if(enemy.dodgeChance() < character.hitChance()) {
         enemy.takeDamage(damage);
-        combatLog = "<p>You " + character.getAttack() + " " + enemy.getName() +  " With " + character.equipment.getWeapon() +  " For " + damage + " Damage</p>";
+        combatLog = "<p>You " + character.getAttack() + " " + enemy.getName() +  " With " + character.weapon.getWeapon() +  " For " + damage + " Damage</p>";
     }
     else {
-        combatLog = "<p>You Attempt To " + character.getAttack() + " " + enemy.getName() +  " With Your " + character.equipment.getWeapon() +  " But Miss</p>";
+        combatLog = "<p>You Attempt To " + character.getAttack() + " " + enemy.getName() +  " With " + character.weapon.getWeapon() +  " But Miss</p>";
     }
     return combatLog;
     }
@@ -191,21 +183,29 @@ function enemyAttack() {
 
     // METHOD FOR IF PLAYER WINS COMBAT
     function win() {
-        character.equipment.addTokens(enemy.getTokens());
+        character.setTokens(enemy.getTokens() + character.getTokens());
         character.addXP(enemy.getXP());
+    }
+
+    function checkLife(health) {
+        if(health <= 0) { // if enemy kills player
+            document.getElementById("story").innerHTML = "<h2 class='gameOver' style='text-align: center;';>:/**~~GAME OVER~~**/:</h2><br><p class='gameOver' style='text-align: center;'>" + currentEvent.getFail() + "</p>";
+            document.getElementById("reboot").style.display = "block";
+            deadView();
+        }
     }
 
     function upgrade() {
     
         let victory = currentEvent.getSuccess() + "\n\nYour Reward:\n"+ enemy.getXP() + " XP\n" + enemy.equipment.getTokens() + " Tokens\n" + enemy.equipment.getJB() + " JuiceBoxes";
-        if(enemy.equipment.getWeapon() != null && enemy.equipment.getWeapon() != character.equipment.getWeapon()) {
-            victory += "\n\nWhile Pilfering The " + enemy.getName() +"'s Belongings You Find A " + enemy.equipment.getWeapon() + 
-            ". It Looks Interesting, But Is It Better Than Your " + character.equipment.getWeapon() + "?\n\n" +
+        if(enemy.equipment.weapon.getWeapon() != null && enemy.equipment.weapon.getWeapon() != character.weapon.getWeapon()) {
+            victory += "\n\nWhile Pilfering The " + enemy.getName() +"'s Belongings You Find " + enemy.equipment.weapon.getWeapon() + 
+            ". It Looks Interesting, But Is It Better Than Your " + character.weapon.getWeapon() + "?\n\n" +
             "*Replace Current Weapon?*";
             if(window.confirm(victory)) {
-                character.equipment.setWeapon(enemy.equipment.getWeapon());
-                character.equipment.setDamage(enemy.equipment.getDamage());
-                character.equipment.setAttacks(enemy.equipment.getAttack1(), enemy.equipment.getAttack2(), enemy.equipment.getAttack3());
+                character.weapon.setWeapon(enemy.equipment.weapon.getWeapon());
+                character.weapon.setDamage(enemy.equipment.weapon.getDamage());
+                character.weapon.setAttacks(enemy.equipment.weapon.getAttack1(), enemy.equipment.weapon.getAttack2(), enemy.equipment.weapon.getAttack3());
             }
         }
         else {
@@ -218,13 +218,13 @@ function enemyAttack() {
     // REFRESH METHODs
     // -----------------------------------------------------------------------------------------------------------------------------------------------//
     function stats() {
-        document.getElementById("stats").innerHTML = "<p> | HP: " + character.getCurrentHP() + " | Edge: " + character.getEdge() + " | Muscle: " + character.getMuscle() +" | JuiceBoxes: " + character.equipment.getJB() + " | Tokens: " + character.equipment.getTokens() + " | XP: " + character.getXP() + " | Level: " + character.getLevel() + " |</p>";
+        document.getElementById("stats").innerHTML = "<p> | HP: " + character.getCurrentHP() + " | Edge: " + character.getEdge() + " | Muscle: " + character.getMuscle() +" | JuiceBoxes: " + character.getJB() + " | Tokens: " + character.getTokens() + " | XP: " + character.getXP() + " | Level: " + character.getLevel() + " |</p>";
     }
 
     function displayPage(event) {
         if(event != null ) {
         eventName = event;
-        enemy = findEnemy(event);
+
         currentEvent = changeEvent(eventName);
         document.getElementById("image").src="images/" + currentEvent.getImage();
         stats();
@@ -248,11 +248,35 @@ function enemyAttack() {
             codeView();
             break;
             case "combat":
+            enemy = findEnemy(eventName);
             combatView();
             break;
             case "dream":
-            document.getElementById("dream").style.display = "block";
+                document.getElementById("dream").style.display = "block";
+                let i = 0;
+                
+                let percent = setInterval(function() {
+                    document.getElementById("complete").innerText = i + "%";
+                    i++;
+                    if(i == 101) { 
+                        document.getElementById("complete").innerText = "COMPLETE";
+                        document.getElementById("dreamText").innerText = eventName;
+                        document.getElementById("startDream").style.display = "inline-block";
+                        clearInterval(percent); 
+                    }
+                    }, 75)
+
             normalView();
+            break;
+            case "reward":
+                character.setTokens(character.getTokens() + 100);
+                break;
+            case "Death":
+                checkLife(-1);
+                break;
+            case "end":
+            document.getElementById("reboot").style.display = "block";
+            deadView();
             break;
             default:
             normalView();

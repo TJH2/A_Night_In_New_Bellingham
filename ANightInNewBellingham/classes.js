@@ -1,48 +1,46 @@
 // GAME CLASSES -------------------------------------------------------------------------------------------------------------------------------
 
-// EQUIPMNET CLASS
-class Equipment {
-    constructor(weapon, attack1, attack2, attack3, damage, tokens, JB, misc) {
-       this.weapon = weapon;
+//WEAPON CLASS
+class Weapon {
+    constructor(name, damage, attack1, attack2, attack3){
+       this.name = name;
+       this.damage = damage;
        this.attack = new Array();
        this.attack[0] = attack1;
        this.attack[1] = attack2;
        this.attack[2] = attack3;
-       this.damage = damage;
-       this.tokens = tokens;
-       this.JB = JB;
-       this.misc = misc;
     }
     //Accessors
-    getWeapon() {return this.weapon;}
-    getAttack(i) {return this.attack[i];}
-    getAttackLength() {return this.attack.length;}
+    getWeapon() {return this.name;}
     getDamage() { return this.damage;}
-    getTokens() {return this.tokens;}
-    getJB() {return this.JB;}
+    getAttack(i) {return this.attack[i];}
     getAttack1() {return this.attack[0];}
     getAttack2() {return this.attack[1];}
     getAttack3() {return this.attack[2];}
-
     //Mutators
-    setWeapon(weapon) {this.weapon = weapon;}
+    setWeapon(name) {this.name = name;}
     setAttacks(attack1, attack2, attack3) {
         this.attack[0] = attack1;
         this.attack[1] = attack2;
         this.attack[2] = attack3;
     }
     setDamage(damage) {this.damage = damage;}
-    setTokens(tokens) {this.tokens = tokens;}
-    setJB(JB) {this.JB = JB;}
-
-    addTokens(tokens) {
-        this.tokens += tokens;
-    }
-
 }
 
-let equipment = new Equipment("Street Fighting", "Kick", "Punch", "Bite", 5, 100, 5, null); // equipment object
+let characterWeapon = new Weapon("Martial Arts", 4, "Punch", "Kick", "Chop");
 
+// EQUIPMNET CLASS
+class Equipment {
+    constructor(weapon, tokens, JB, misc) {
+       this.weapon = weapon;
+       this.tokens = tokens;
+       this.JB = JB;
+       this.misc = misc;
+    }
+    //Accessors
+    getTokens() {return this.tokens;}
+    getJB() {return this.JB;}
+}
 
 // CHARACTER CLASS
 class Character {
@@ -53,7 +51,9 @@ class Character {
        this.edge = 0;
        this.xp = 0; // character experience
        this.lvl = 1;
-       this.equipment = equipment;
+       this.JB = 5;
+       this.tokens = 0;
+       this.weapon = characterWeapon;
     } // end of constructor
 
   //CHARACTER ACCESSORS
@@ -63,14 +63,16 @@ class Character {
     getEdge() {return this.edge;}
     getXP() {return this.xp;}
     getLevel() {return this.lvl;}
+    getTokens() {return this.tokens;}
+    getJB() {return this.JB;}
 
     getAttack() { 
-        let number = Math.floor(Math.random() * this.equipment.getAttackLength());
-        return this.equipment.getAttack(number);}
+        let number = Math.floor(Math.random() * 3);
+        return this.weapon.getAttack(number);}
     
 
     dealDamage() {
-    let number = Math.floor(Math.random() * this.equipment.getDamage()) + this.muscle + 1;
+    let number = Math.floor(Math.random() * this.weapon.getDamage()) + this.muscle + 1;
     return number;}
 
     hitChance() {
@@ -120,16 +122,20 @@ class Character {
         }
     }
 
+    setTokens(tokens) {this.tokens = tokens;}
+    setJB(JB) {this.JB = JB;}
+
+
  // ---------------------------------------------------------------------------------------
 
     heal() {
     this.currentHP = this.maxHP;
-    this.equipment.setJB(this.equipment.getJB() - 1);
+    this.setJB(this.getJB() - 1);
  }
 
     restock() {
     this.currentHP = this.maxHP;
-    this.equipment.setJB(5 + this.equipment.getJB());
+    this.setJB(5 + this.getJB());
  }
  
     takeDamage(damage) {
@@ -199,6 +205,7 @@ class Event {
  class Enemy {
     constructor(name, HP, damage, edge,  XP, weapon, a1, a2, a3, equipment) {
        this.name = name;
+       this.maxHP = HP;
        this.HP = HP;
        this.damage = damage;
        this.edge = edge;
@@ -237,11 +244,14 @@ class Event {
 
       getAttack() { 
         let number = Math.floor(Math.random() * this.attack.length);
-        console.log(number);
         return this.attack[number];}
     
         //MUTATORS
     takeDamage(damage) {
         this.HP = this.HP - damage;
+    }
+
+    heal() {
+        this.HP = this.maxHP;
     }
  }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>A Night In New Bellingham - Game</title>
+        <title>A Night In New Bellingham - Demo</title>
         <meta charset="utf-8">
         <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
@@ -31,9 +31,13 @@
                         <button id="option2" onclick = displayPage(currentEvent.getRight())></button>
                     </div>
                     <div id="combat">
-                        <button onclick = battle()>Attack</button>
-                        <button onclick = heal()>JuiceBox</button>
-                        <button onclick = flee()>Flee</button>
+                        <button onclick = battle()>Use Weapon</button>
+                        <button onclick = heal()>Use JuiceBox</button>
+                        <button onclick = flee()>Attempt To Flee</button>
+                    </div>
+                    <div id = "reboot">
+                        <P id="rebootContent"></P>
+                        <button onclick = reboot()>Reboot</button>
                     </div>
                 </div>
                 <div id="inputs">
@@ -51,13 +55,11 @@
         </main>
         </div>
         <!-- Divs for plots -->
-        <div id = "dream">
-            <p>Plot Text</p>
-            <button onclick = 'closeWindow("dream")''>Enter</button>
-        </div>
-        <div id = "reboot">
-            <section id ="rebootContent"></section>
-            <button onclick = reboot()>Reboot</button>
+        <div id ="dream">
+            <h2>Welcome To Day_Dream_Drop, An RSG (Random Simulation Generator) Platform Created By New Bellingham's Own TECA Industries</h2>
+            <p>Generating Simulation: <span id ="complete">0%</span></p>
+            <p class="gameOver">Simulation Generated: <span id = "dreamText"></span></p>
+            <p><a href="#" onclick ='closeWindow("dream")' id="startDream">Start_Dream</a></p>
         </div>
         <script src="classes.js"></script>
         <script src="maps.js"></script>
