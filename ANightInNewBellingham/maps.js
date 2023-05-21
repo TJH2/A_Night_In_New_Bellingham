@@ -11,27 +11,29 @@ let ljWeapon = new Weapon("Lightsaber", 10, "Slash", "Cut", "Chop");
 let robotEQ = new Equipment(robotWeapon, 10, 1, null);
 let bindle = new Equipment(ljWeapon, 25, 2, null);
 
+//HASHTABLE
+const events = new HashTable(); // hashtable object for storing events
+
 //HASHMAPS 
-    const music = new Map(); //map for storing music
-    const events = new Map(); // map for storing events
-    const enemies = new Map(); // map For storing enemies
-    const passcode = new Map(); // map for storing passcodes
+const music = new Map(); //map for storing music
+const enemies = new Map(); // map For storing enemies
+const passcode = new Map(); // map for storing passcodes
 
-    //MUSIC FILL - Song File, Song Name
-    music.set("DrivingFastandUsingaCarPhonetoCallthePresentDay.mp3", "Driving Fast And Using A Car Phone To Call The Present Day - Hot Dad");
-    music.set("Elon_Musk_Hot_Dad.mp3", "Elon Musk - Hot Dad");
-    music.set("YouShouldBeMyHero.mp3", "You Should Be My Hero - Hot Dad");
+//MUSIC FILL - Song File, Song Name
+music.set("DrivingFastandUsingaCarPhonetoCallthePresentDay.mp3", "Driving Fast And Using A Car Phone To Call The Present Day - Hot Dad");
+music.set("Elon_Musk_Hot_Dad.mp3", "Elon Musk - Hot Dad");
+music.set("YouShouldBeMyHero.mp3", "You Should Be My Hero - Hot Dad");
     
-    //PASSCODE FILL - Event Name, code answer
-    passcode.set("garage", 4321);
+//PASSCODE FILL - Event Name, code answer
+passcode.set("garage", 4321);
 
-    //ENEMIES - Name, Health, Damage, Edge, XP, Weapon, Attack1, Attack2, Attack3, Equipment
-    let robot = new Enemy("PN0K.IO", 10, 2, 2, 25, "Mechanical Arm", "Grab", "Punch", "Smash", robotEQ)
-    let longjack = new Enemy("Long Jack", 10, 3, 3, 25, "Hands", "Crushes", "Strangles", "Shreds", bindle);
+//ENEMIES - Name, Health, Damage, Edge, XP, Weapon, Attack1, Attack2, Attack3, Equipment
+let robot = new Enemy("PN0K.IO", 10, 2, 2, 25, "Mechanical Arm", "Grab", "Punch", "Smash", robotEQ)
+let longjack = new Enemy("Long Jack", 10, 3, 3, 25, "Hands", "Crushes", "Strangles", "Shreds", bindle);
 
-    //ENEMY FILL - Event Name, Enemy Node
-    enemies.set("theLongJack", longjack);
-    enemies.set("robotBattle", robot);
+//ENEMY FILL - Event Name, Enemy Node
+enemies.set("theLongJack", longjack);
+enemies.set("robotBattle", robot);
 
     //TJ EVENTS ---------------------------------------------------------------------------------------------------------------------------------------------------------//
     let start = 
@@ -273,7 +275,7 @@ let bindle = new Equipment(ljWeapon, 25, 2, null);
 
       let ruckus = 
       new Event(
-         "<p>You made to The Ruckus Room. The coolest arcade in all of New Bellingham, and at this point maybe the coolest in the world. Here you can play all the vintage games from the 20's and 30's. Rumor has it that the owner, Napster, even got his hands on an old Playstation 4... no games yet though...</p><br>" +
+         "<p>You made to The Ruckus Room. The coolest arcade in all of New Bellingham, and at this point maybe the coolest in the world. Here you can play all the vintage games from the 10's and 20's. Rumor has it that the owner, Napster, even got his hands on an old Playstation 4... no games yet though...</p><br>" +
          "<p>Either way, you plan on playing some games, having a good time, and if you get bored enough, who knows? Maybe you'll start some trouble.</p><br>" +
          "<p>TO BE CONTINUED:</p>", // story
          null, // option 1
