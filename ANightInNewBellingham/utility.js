@@ -20,8 +20,8 @@ character.setMuscle(Number(array[4].trim()));
 character.setEdge(Number(array[5].trim()));
 character.setJB(Number(array[6].trim()));
 character.setTokens(Number(array[7].trim()));
-character.setWeapon(array[8].trim());
-character.setAttacks(array[9].trim(), array[10].trim(), array[11].trim());
+character.weapon.setWeapon(array[8].trim());
+character.weapon.setAttacks(array[9].trim(), array[10].trim(), array[11].trim());
 
 displayPage(eventName);
 }
