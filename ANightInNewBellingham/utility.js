@@ -232,7 +232,7 @@ function enemyAttack() {
         document.getElementById("option2").innerHTML = currentEvent.getOption2();
         document.getElementById("story").innerHTML = currentEvent.getStory();
         document.getElementById("story").scrollTo(0,0);
-        if(currentEvent.getSong() != null) {
+        if(currentEvent.getSong() != null && document.getElementById("audioName").innerHTML != songName(currentEvent.getSong())) {
             document.getElementById("song").src="audio/" + currentEvent.getSong();
             document.getElementById("audioName").innerHTML = songName(currentEvent.getSong());
         }
@@ -268,6 +268,10 @@ function enemyAttack() {
 
             normalView();
             break;
+            case "tower":
+                document.getElementById("story").innerHTML = towerDisplay(tower1, tower2, tower3);
+                towerView();
+                break;
             case "reward":
                 character.setTokens(character.getTokens() + 100);
                 break;
@@ -289,24 +293,35 @@ function enemyAttack() {
         document.getElementById("passcode").style.display = "none";
         document.getElementById("options").style.display = "block";
         document.getElementById("combat").style.display = "none";
+        document.getElementById("towers").style.display = "none";
     }
 
     function codeView() {
             document.getElementById("passcode").style.display = "inline-block";
             document.getElementById("options").style.display = "none";
             document.getElementById("combat").style.display = "none";
+            document.getElementById("towers").style.display = "none";
     }
 
     function combatView() {
         document.getElementById("passcode").style.display = "none";
         document.getElementById("options").style.display = "none";
         document.getElementById("combat").style.display = "inline-block";
+        document.getElementById("towers").style.display = "none";
     }
 
     function deadView() {
         document.getElementById("passcode").style.display = "none";
         document.getElementById("options").style.display = "none";
         document.getElementById("combat").style.display = "none";
+        document.getElementById("towers").style.display = "none";
+    }
+
+    function towerView() {
+        document.getElementById("passcode").style.display = "none";
+        document.getElementById("options").style.display = "none";
+        document.getElementById("combat").style.display = "none";
+        document.getElementById("towers").style.display = "block";
     }
     
 

@@ -135,7 +135,7 @@ enemies.set("robotBattle", robot);
          null, // specialEvent
          null, // success
          null, // fail
-         "theLongJack", // event Left
+         "stranger1", // event Left
          "robotBattle", // event right
          "robot.jpg", // image
          null // song
@@ -149,7 +149,7 @@ enemies.set("robotBattle", robot);
          "That Isn't How Things Were Supposed To Go [Drop The Gig, Head Toward The Ruckus Room]", //option 2
          "combat", // specialEvent
          "The broken and battered shell of the robot clatters to the ground and the green lights fade from its eyes. You need to take a breather and figure out your next move.", // success
-         "KILLED IN COMBAT BY PN0K.IO", // fail
+         "Aim Botted...", // fail
          "callJS", // event Left
          "VR1", // event right
          "robot.jpg", // image
@@ -179,24 +179,10 @@ enemies.set("robotBattle", robot);
             null, // specialEvent
             null, // success
             null, // fail
-            "theLongJack", // Event Left
+            "stranger1", // Event Left
             "VR1", // Event Right
             "vapeoutside.jpg", // images
             null // song
-         );
-
-      let theLongJack =
-      new Event(
-         "<p>About halfway down the alley, a Long Jack appears from behind a trashcan and reaches its elongated arm out to grab you...</p>",
-         "[Head Back The Way You Came And Stay On The Street]", // option 1
-         "[Continue Down The Alley]", //option 2
-         "combat", // specialEvent
-         "You have defeated the Long Jack. Head back to the street or continue forward through the alley?", // success
-         "KILLED IN COMBAT BY LONG JACK", // fail
-         "VR1", // event Left
-         "ruckus", // event right
-         "longjack.jpg", // image
-         "YouShouldBeMyHero.mp3" // song
          );
 
          let VR1 =
@@ -273,6 +259,85 @@ enemies.set("robotBattle", robot);
          null // song
       );
 
+      let stranger1 = 
+      new Event(
+         "<p>Walking through the alley, you realize you are being tailed. You turn around quickly and see a mysterious stranger in a trench coat standing just a few feet away.</p><br>" +
+         "<p>Stranger - \"<em>Yo, you HD? I know a guy who knows a guy that says HD can help me out with a problem, and you meet his description.</em>\"</p>", // story
+         "Yep [Listen To What He Has To Say]", // option 1
+         "You Don't Have Time For This [Continue Down The Alley]", //option 2
+         null, // specialEvent
+         null, // success
+         null, // fail
+         "stranger2", // Event Left
+         "ruckus", // Event Right
+         "shady.jpg",  // image
+         "Elon_Musk_Hot_Dad.mp3" // song
+      );
+
+      let stranger2 = 
+      new Event(
+         "<p>The stranger retrieves a premium stitch from his coat and turns it on.</p><br>" +
+         "<p>Stranger - \"<em>Klept this beauty off a fat cat in Fairhaven earlier tonight, then booked it back here ASAP on a shuttle. " + 
+         "This stitch has some info on it that I want. Problem is, its got some crazy I.C.E. I can't seem to crack. " +
+         "From what I can tell, the program works like this:<br> <br> You have 4 rings and 3 towers. All the rings start out on the left tower, but need to be moved to the tower on the right. " +
+         "Seems easy enough, huh? Problem is, the rings are different sizes, and you can't place a bigger rings over smaller rings AND you only got 20 moves to do it. " +
+         "I only got 1 try left and the datas gone forever. <br> <br>How about you solve it for me for 100 Tokens, eh?</em>\"</p>", // story
+         "You'll Do It [Take A Look At The Stitch]", // option 1
+         "You Don't Have Time For This [Continue Down The Alley]", //option 2
+         null, // specialEvent
+         null, // success
+         null, // fail
+         "tower", // Event Left
+         "theLongJack", // Event Right
+         "shady.jpg",  // image
+         "Elon_Musk_Hot_Dad.mp3" // song
+      );
+
+      let tower = 
+      new Event(
+         null, // story
+         "[Hand The Stitch Over To The Stranger]", // option 1
+         "Finders Keepers [Try To Pocket The Device And Leave]", //option 2
+         "tower", // specialEvent
+         "You Successfully Cracked The TECA I.C.E.", // success
+         "The Data From The Stitch Was Whiped Clean...", // fail
+         "stranger3", // Event Left
+         "theLongJack", // Event Right
+         "shady.jpg",  // image
+         "Elon_Musk_Hot_Dad.mp3" // song
+      );
+
+      let theLongJack =
+      new Event(
+         "<p>Furious, the stranger starts digging into his neck in frustration, exposing dried, patchy grey skin.</p><br>" + 
+         "<p>Stranger - \"<em>You couldn't just break the I.C.E.! You had to screw up my plan!</em>\"</p><br>" + 
+         "<p>Removing its face, you realize the stranger isn't a stranger at all... it's your mortal enemy, and ancient enemy to all Bellinghamsters, Long Jack! How you didn't realize the stranger was actually a 10ft tall mutant with a mask on is strange in itself... But you don't have time to think about it too hard...</p><br>" + 
+         "<p>The creature lunges at you!</p>",
+         "[Head Back The Way You Came And Stay On The Street]", // option 1
+         "[Continue Down The Alley]", //option 2
+         "combat", // specialEvent
+         "You have defeated the Long Jack. Head back to the street or continue forward through the alley?", // success
+         "Long Jacked....", // fail
+         "VR1", // event Left
+         "ruckus", // event right
+         "longjack.jpg", // image
+         "YouShouldBeMyHero.mp3" // song
+         );
+
+      let stranger3 = 
+      new Event(
+         "<p>Stranger - \"Whats fair is fair. I heard You were the best, and you didn't dissappoint. Tokens are transfered...\"</p>", // story
+         "The Stranger Didn't Say This Was a TECA Stitch [Demand More Tokens]", // option 1
+         "Thanks [Continue Down The Alley]", //option 2
+         "reward", // specialEvent
+         null, // success
+         null, // fail
+         "theLongJack", // Event Left
+         "ruckus", // Event Right
+         "shady.jpg",  // image
+         "Elon_Musk_Hot_Dad.mp3" // song
+      );
+
       let ruckus = 
       new Event(
          "<p>You made to The Ruckus Room. The coolest arcade in all of New Bellingham, and at this point maybe the coolest in the world. Here you can play all the vintage games from the 10's and 20's. Rumor has it that the owner, Napster, even got his hands on an old Playstation 4... no games yet though...</p><br>" +
@@ -289,7 +354,7 @@ enemies.set("robotBattle", robot);
          "Elon_Musk_Hot_Dad.mp3" // song
       );
     
-        // TJ FILL - Event Name (this is where you decide the name), Event Node
+        // Event Name (this is where you decide the name), Event Node
         events.set("start", start);
         events.set("JS", JS);
         events.set("garage", garage);
@@ -300,6 +365,10 @@ enemies.set("robotBattle", robot);
         events.set("robotBattle", robotBattle);
         events.set("callJS", callJS);
         events.set("decline", decline);
+        events.set("stranger1", stranger1);
+        events.set("stranger2", stranger2);
+        events.set("tower", tower);
+        events.set("stranger3", stranger3);
         events.set("theLongJack", theLongJack);
         events.set("VR1", VR1);
         events.set("toast", toast1);
@@ -307,44 +376,7 @@ enemies.set("robotBattle", robot);
         events.set("toaster", toaster);
         events.set("vrDead", vrDead);
         events.set("ruckus", ruckus);
-
-      // DAV EVENTS --------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-      // DAV FILL
-
-      // JAZ EVENTS -------------------------------------------------------------------------------------------------------------------------------------------------------//
-      let VR2 =
-      new Event(
-         "<p>While walking up the street you come across a VR headset on a city bench with the note that reads \"Free Day Dreams\"...</p>", // story
-         "Sweet, A Free Day Dream [Put On Headset]", // option 1
-         "I'm Not Jacking Into Any Rogue Tech [Walk Away]", //option 2
-         null, // specialEvent
-         null, // success
-         null, // fail
-         "dream", // Event Left
-         null, // Event Right
-         "VR.jpg", // image
-         null // song
-      );
-      dream = 
-      new Event(
-         "<p>STORY TEXT GOES HERE</p>", // story
-         "OPTION 1", // option 1
-         "OPTION 2", //option 2
-         "dream", // specialEvent
-         null, // success
-         null, // fail
-         null, // Event Left
-         null, // Event Right
-         "cyberpig.jpg",  // image
-         null // song
-      );
-
-      // JAZ FILL
-
-      events.set("VR2", VR2);
-      events.set("dream", dream);
-    
+        
     //TRAVERSAL FUNCTIONS
     function songName(name) {
         return music.get(name);

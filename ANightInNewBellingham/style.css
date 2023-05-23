@@ -73,6 +73,17 @@ img {
     opacity: 65%;
 }
 
+button {
+    background-color: black;
+    color: green;
+    border: 2px solid green;
+}
+button:hover {
+    color: purple;
+    border-color: purple;
+    box-shadow: 2px 2px black;
+}
+
 #passcode, #combat {
     position: relative;
     left: 50%;
@@ -94,7 +105,18 @@ img {
     display: inline-block;
 }
 
-#options button, #reboot button {
+#towers {
+    width: 95%;
+    padding: 5px;
+    margin: 5px auto;
+    background-color: black;
+    color: green;
+    text-align: center;
+    border: 2px solid green;
+    display: none;
+}
+
+#options button, #reboot button, #towers button {
     padding: 5px;
     margin: 10px auto; 
     display: block;
@@ -219,4 +241,13 @@ img {
 
   .gameOver{
     animation: gameOver 1s infinite;
+  }
+
+  .tower {
+    width: 33%;
+    padding: 5px;
+    margin: auto; 
+    text-align: center;
+    border: 1px solid green;
+    display: inline-block;
   }
