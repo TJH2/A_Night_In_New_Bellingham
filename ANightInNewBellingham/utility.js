@@ -200,7 +200,7 @@ function enemyAttack() {
         let victory = currentEvent.getSuccess() + "\n\nYour Reward:\n"+ enemy.getXP() + " XP\n" + enemy.equipment.getTokens() + " Tokens\n" + enemy.equipment.getJB() + " JuiceBoxes";
         if(enemy.equipment.weapon.getWeapon() != null && enemy.equipment.weapon.getWeapon() != character.weapon.getWeapon()) {
             victory += "\n\nWhile Pilfering The " + enemy.getName() +"'s Belongings You Find " + enemy.equipment.weapon.getWeapon() + 
-            ". It Looks Interesting, But Is It Better Than Your " + character.weapon.getWeapon() + "?\n\n" +
+            ". It Looks Interesting, But Is It Better Than " + character.weapon.getWeapon() + "?\n\n" +
             "*Replace Current Weapon?*";
             if(window.confirm(victory)) {
                 character.weapon.setWeapon(enemy.equipment.weapon.getWeapon());

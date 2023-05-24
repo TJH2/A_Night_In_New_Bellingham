@@ -5,11 +5,11 @@ let eventName = "start"; //name of current event
 let enemy; // enemy object
 let character = new Character(); // character object
 //WEAPONS - Weapon Name, Damage, Attack1, Attack2, Attack 3
-let robotWeapon = new Weapon("A Detached Mechanical Arm", 5, "Bash", "Crush", "Smack");
-let ljWeapon = new Weapon("Piece Of Rope", 10, "Slap", "Whip", "Swish");
+let metalArm = new Weapon("A Detached Mechanical Arm", 5, "Bash", "Crush", "Smack");
+let rope = new Weapon("A Piece Of Rope", 1, "Slap", "Whip", "Swish");
 //EQUIPMENT - Weapon Tokens, JB, Misc
-let robotEQ = new Equipment(robotWeapon, 10, 1, null);
-let bindle = new Equipment(ljWeapon, 25, 2, null);
+let robotEQ = new Equipment(metalArm, 10, 1, null);
+let bindle = new Equipment(rope, 25, 2, null);
 
 //HASHTABLE
 const events = new HashTable(); // hashtable object for storing events
@@ -23,6 +23,7 @@ const passcode = new Map(); // map for storing passcodes
 music.set("DrivingFastandUsingaCarPhonetoCallthePresentDay.mp3", "Driving Fast And Using A Car Phone To Call The Present Day - Hot Dad");
 music.set("Elon_Musk_Hot_Dad.mp3", "Elon Musk - Hot Dad");
 music.set("YouShouldBeMyHero.mp3", "You Should Be My Hero - Hot Dad");
+music.set("TheThingsWeUsedtoBuy.mp3", "The Things We Used To Buy - Hot Dad");
     
 //PASSCODE FILL - Event Name, code answer
 passcode.set("garage", 4321);
@@ -50,12 +51,12 @@ enemies.set("robotBattle", robot);
          "JS", // Event Left
          "decline", // Event Right
          "JS.jpg", // image
-         "DrivingFastandUsingaCarPhonetoCallthePresentDay.mp3" // song
+         "YouShouldBeMyHero.mp3" // song
       );
 
       let JS = 
       new Event(
-         "<p>JS - \"<em>Normally, the early bird gets the worm, but today you're in luck. It's from a shady client, but the pay is decent. 100 Tokens for a simple task. All you have to do is go down the street to a garage and shut off some appliance. The client says it's wasting power and he's out of town. The garage is two blocks down, in an alley on the right. The one with the T.E.C.A company logo on it. The code to get in is <strong>4321</Strong>. You'll know the appliance by a glowing green light. Just yank the cord and get out. Easy peasy.\"</em></p><br>" +
+         "<p>JS - \"<em>Normally, the early bird gets the worm, but today you're in luck. It's from a shady client, but the pay is decent. 100 Tokens for a simple task. All you have to do is go down the street to a garage and shut off some appliance. The client says it's wasting power and he's out of town. The garage is two blocks down, in an alley on the right. The one with the T.E.C.A. company logo on it. The code to get in is <strong>4321</Strong>. You'll know the appliance by a glowing green light. Just yank the cord and get out. Easy peasy.\"</em></p><br>" +
          "Oh, by the way, you're not the first Edger I've asked to do this job today. I've asked two others before you, but they each took the job and then bailed. Made some excuse, said they had other plans, or something like that. No big deal. Their loss is your gain, right? Anyway, just do the job and get paid. Don't worry about anything else. Got it?\"</p>", // story
          "[Head To The Garage]", // option 1
          "[Shrug And Leave The Store]", //option 2
@@ -145,15 +146,15 @@ enemies.set("robotBattle", robot);
       new Event(
          "<p>The robot unleashes itself from the ceiling and attacks you with its lone functional arm when you try to pull its cord.</p><br>" +
          "<p>PN0K.IO - \"<em>Y-y-you won't trick m-me again doc...</em>\"</p>",
-         "That's One Way Of Turning Off The \"Appliance\" [Call JS And Let Her Know What Happened]", // option 1
-         "That Isn't How Things Were Supposed To Go [Drop The Gig, Head Toward Ruckus]", //option 2
+         "[Call JS And Let Her Know What Happened...]", // option 1
+         "[Drop The Gig, Head Toward Ruckus]", //option 2
          "combat", // specialEvent
          "The broken and battered shell of the robot clatters to the ground and the green lights fade from its eyes. You need to take a breather and figure out your next move.", // success
          "Aim Botted...", // fail
          "callJS", // event Left
          "VR1", // event right
          "robot.jpg", // image
-         "YouShouldBeMyHero.mp3" // song
+         "TheThingsWeUsedtoBuy.mp3" // song
          );
 
          let callJS =
@@ -168,7 +169,7 @@ enemies.set("robotBattle", robot);
          "VR1", // Event Left
          "VR1", // Event Right
          "JS.jpg", // image
-         null // song
+         "YouShouldBeMyHero.mp3" // song
       );
 
          let decline = new Event(
@@ -182,7 +183,7 @@ enemies.set("robotBattle", robot);
             "stranger1", // Event Left
             "VR1", // Event Right
             "vapeoutside.jpg", // images
-            null // song
+            "DrivingFastandUsingaCarPhonetoCallthePresentDay.mp3" // song
          );
 
          let VR1 =
@@ -196,7 +197,7 @@ enemies.set("robotBattle", robot);
          "toast", // Event Left
          "ruckus", // Event Right
          "VR.jpg", // image
-         null // song
+         "DrivingFastandUsingaCarPhonetoCallthePresentDay.mp3" // song
       );
 
       let toast1 = 
@@ -271,7 +272,7 @@ enemies.set("robotBattle", robot);
          "stranger2", // Event Left
          "ruckus", // Event Right
          "stranger.jpg",  // image
-         "Elon_Musk_Hot_Dad.mp3" // song
+         "DrivingFastandUsingaCarPhonetoCallthePresentDay.mp3" // song
       );
 
       let stranger2 = 
@@ -290,7 +291,7 @@ enemies.set("robotBattle", robot);
          "tower", // Event Left
          "stranger3", // Event Right
          "stranger.jpg",  // image
-         "Elon_Musk_Hot_Dad.mp3" // song
+         null // song
       );
 
       let stranger3 = 
@@ -304,7 +305,7 @@ enemies.set("robotBattle", robot);
          "tower", // Event Left
          "stranger4", // Event Right
          "stranger.jpg",  // image
-         "Elon_Musk_Hot_Dad.mp3" // song
+         null // song
       );
 
       let stranger4 = 
@@ -318,7 +319,7 @@ enemies.set("robotBattle", robot);
          "tower", // Event Left
          "theLongJack", // Event Right
          "stranger.jpg",  // image
-         "Elon_Musk_Hot_Dad.mp3" // song
+         null // song
       );
 
       let tower = 
@@ -332,7 +333,7 @@ enemies.set("robotBattle", robot);
          "stranger5", // Event Left
          "theLongJack", // Event Right
          "stranger.jpg",  // image
-         "Elon_Musk_Hot_Dad.mp3" // song
+         null // song
       );
 
       let theLongJack =
@@ -349,7 +350,7 @@ enemies.set("robotBattle", robot);
          "VR1", // event Left
          "ruckus", // event right
          "longjack.jpg", // image
-         "YouShouldBeMyHero.mp3" // song
+         "TheThingsWeUsedtoBuy.mp3" // song
          );
 
       let stranger5 = 
@@ -363,7 +364,7 @@ enemies.set("robotBattle", robot);
          "theLongJack", // Event Left
          "ruckus", // Event Right
          "stranger.jpg",  // image
-         "Elon_Musk_Hot_Dad.mp3" // song
+         null // song
       );
 
       let ruckus = 
