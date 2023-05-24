@@ -44,7 +44,7 @@ function displayRing(tower, index) {
 
 // Method to display rings
 function towerDisplay() {
-    return "<p>Moves Left: " + moves +"</p>" +
+    return "<p>~TECA ENTERPRISES CORPORATION (A)INDUSTRIES~ - " + moves +"</p>" +
            "<div class = 'tower'>" + // tower 1
            "<p>Tower 1</p><br>" +
            "<p>||</p>" +
