@@ -327,7 +327,7 @@ enemies.set("robotBattle", robot);
          "[Hand The Stitch Over]", // option 1
          "Finders Keepers [Try To Pocket The Device And Leave]", //option 2
          "tower", // specialEvent
-         "You Successfully Cracked The TECA I.C.E.", // success
+         "You Successfully Cracked The T.E.C.A I.C.E.", // success
          "The Data From The Stitch Was Whiped Clean...", // fail
          "stranger5", // Event Left
          "theLongJack", // Event Right
@@ -355,8 +355,8 @@ enemies.set("robotBattle", robot);
       let stranger5 = 
       new Event(
          "<p>Not The Long Jack - \"Whats fair is fair. I heard You were the best, and you didn't dissappoint. Tokens are transfered...\"</p>", // story
-         "The Stranger Didn't Say This Was a TECA Stitch [Demand More Tokens]", // option 1
-         "Thanks [Continue Down The Alley]", //option 2
+         "[Demand More Tokens For Cracking T.E.C.A. I.C.E.]", // option 1
+         "[Continue Down The Alley]", //option 2
          "reward", // specialEvent
          null, // success
          null, // fail
