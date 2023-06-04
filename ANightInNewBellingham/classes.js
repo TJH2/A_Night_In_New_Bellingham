@@ -1,5 +1,3 @@
-// GAME CLASSES -------------------------------------------------------------------------------------------------------------------------------
-
 //WEAPON CLASS
 class Weapon {
     constructor(name, damage, attack1, attack2, attack3){
@@ -141,7 +139,7 @@ class Character {
     takeDamage(damage) {
     this.currentHP = this.currentHP - damage;
  }
-}
+} // end of character class
 
 // EVENT CLASS
 class Event {
@@ -200,6 +198,7 @@ class Event {
     }
 
  } // end node class path
+
 // ENEMY CLASS
  class Enemy {
     constructor(name, HP, damage, edge,  XP, weapon, a1, a2, a3, equipment) {

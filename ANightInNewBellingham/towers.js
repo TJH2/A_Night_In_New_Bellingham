@@ -1,23 +1,24 @@
-// moves
+// MOVE LIMIT
 let moves = 20;
 
-// rings
+// RINGS
 const ring1 = 1;
 const ring2 = 2;
 const ring3 = 3;
 const ring4 = 4;
 
-// towers
+// TOWERS
 let tower1 = [];
 let tower2 = [];
 let tower3 = [];
 
+// ADDINGS RINGS TO FIRST TOWER
 tower1.push(ring4);
 tower1.push(ring3);
 tower1.push(ring2);
 tower1.push(ring1);
 
-
+// METHOD TO DISPLAY RINGS ON TOWERS
 function displayRing(tower, index) {
     if(tower[index] == null) {
         return "||";
@@ -26,23 +27,27 @@ function displayRing(tower, index) {
     switch(tower[index]) {
         case 1:
             return "<span style='color: orange;'>==</span>";
-            break;
+        break;
+
         case 2:
             return "<span style='color: blue;'>===</span>";
-            break;
+        break;
+
         case 3:
-          return  "<span style='color: red;'>====</span>";
-          break;
+            return  "<span style='color: red;'>====</span>";
+        break;
+
         case 4:
-          return  "<span style='color: white;'>=====</span>";
-          break;
+            return  "<span style='color: white;'>=====</span>";
+        break;
+
         default:
-        return "||";
+            return "||";
         break;
     }
 }
 
-// Method to display rings
+// METHOD TO DISPLAY TOWERS
 function towerDisplay() {
     return "<p>~TECA ENTERPRISES CORPORATION (A)INDUSTRIES~ - " + moves +"</p>" +
            "<div class = 'tower'>" + // tower 1
@@ -70,7 +75,7 @@ function towerDisplay() {
            "<p>" + displayRing(tower3, 0) + "</p>" +
            "<p>===</p></div>";
 }
-// Method to move a ring from one tower to another
+// METHODS TO MOVE RINGS BETWEEN TOWERS
 function moveRing(move, set) {
     let moveFrom;
     let moveTo;
@@ -78,25 +83,29 @@ function moveRing(move, set) {
     switch(move) {
         case "tower1":
             moveFrom = tower1;
-            break;
+        break;
+
         case "tower2":
             moveFrom = tower2;
-            break;
+        break;
+
         case "tower3":
             moveFrom = tower3;
-            break;
+        break;
     }
 
     switch(set) {
         case "tower1":
             moveTo = tower1;
-            break;
+        break;
+
         case "tower2":
             moveTo = tower2;
-            break;
+        break;
+
         case "tower3":
             moveTo = tower3;
-            break;
+        break;
    }
 
    console.log(moveFrom[moveFrom.length - 1]);
