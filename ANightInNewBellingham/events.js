@@ -98,7 +98,7 @@ new Event(
    null, // specialEvent
    null, // success
    null, // fail
-   "stranger1", // event Left
+   "VR1", // event Left
    "robotBattle", // event right
    "robot.jpg", // image
    null // song
@@ -334,7 +334,7 @@ let ruckus =
 new Event(
    "<p>You made it to Ruckus. The coolest arcade in all of New Bellingham, and at this point maybe the coolest in the world. Here you can play all the vintage games from the 10's and 20's. Rumor has it that the owner, Napster, even got his hands on an old Playstation 4... no games yet though...</p><br>" +
    "<p>Either way, you plan on having a good time, and if you get bored enough, who knows? Maybe you'll start some trouble. But first you're gonna play some games. Good thing you've saved up all those Tokens.</p><br>" +
-   "<p>TO BE CONTINUED:</p>", // story
+   "<p>TO BE CONTINUED...</p>", // story
    null, // option 1
    null, //option 2
    "end", // specialEvent

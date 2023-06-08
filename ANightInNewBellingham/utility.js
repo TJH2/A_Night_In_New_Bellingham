@@ -241,7 +241,9 @@ function stats() {
 function displayPage(event) {
     if(event != null ) {
         eventName = event;
-
+        if(eventName == "garage") { // message changes depending on if player took the job or not
+            finalMessage = "P.S. - Try turning down the job, if you haven't yet!";
+        }
         currentEvent = changeEvent(eventName);
         document.getElementById("image").src="images/" + currentEvent.getImage();
         stats();
@@ -302,6 +304,7 @@ function specialEvent(specialEvent) {
         break;
 
         case "end":
+            document.getElementById("story").innerHTML = currentEvent.getStory() + "<br><p><em>" + finalMessage + "</em></p>";
             document.getElementById("reboot").style.display = "block";
             deadView();
         break;
@@ -319,6 +322,7 @@ function normalView() {
     document.getElementById("options").style.display = "block";
     document.getElementById("combat").style.display = "none";
     document.getElementById("towers").style.display = "none";
+    document.getElementById("reboot").style.display = "none";
     if(currentEvent.getOption2() == null) {
         document.getElementById("option2").style.display = "none";
     }
@@ -331,6 +335,7 @@ function codeView() {
         document.getElementById("options").style.display = "none";
         document.getElementById("combat").style.display = "none";
         document.getElementById("towers").style.display = "none";
+        document.getElementById("reboot").style.display = "none";
 }
 
 // COMBAT EVENTS
@@ -339,6 +344,7 @@ function combatView() {
     document.getElementById("options").style.display = "none";
     document.getElementById("combat").style.display = "inline-block";
     document.getElementById("towers").style.display = "none";
+    document.getElementById("reboot").style.display = "none";
 }
 
 // WHEN PLAYER DIES
@@ -355,6 +361,7 @@ function towerView() {
     document.getElementById("options").style.display = "none";
     document.getElementById("combat").style.display = "none";
     document.getElementById("towers").style.display = "block";
+    document.getElementById("reboot").style.display = "none";
 }
     
 
