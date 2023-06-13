@@ -4,6 +4,7 @@ let eventName = "start"; // name of current and event
 let enemy; // enemy object
 let character = new Character(); // character object
 let finalMessage = "P.S. - Try giving the job a try, if you haven't yet!"; // final message of the game
+let grunt = new Audio("audio/grunt.wav"); // grunt noise for combat
 
 //WEAPON OBJECTS - Weapon Name, Damage, Attack1, Attack2, Attack 3
 let metalArm = new Weapon("A Detached Mechanical Arm", 5, "Bash", "Crush", "Smack");

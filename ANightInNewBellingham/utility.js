@@ -171,6 +171,7 @@ function characterAttack() {
     let combatLog;
     let damage = character.dealDamage();
     if(enemy.dodgeChance() < character.hitChance()) {
+        grunt.play(); // plays grunt audio
         enemy.takeDamage(damage);
         combatLog = "<p>You " + character.getAttack() + " " + enemy.getName() +  " With " + character.weapon.getWeapon() +  " For " + damage + " Damage</p>";
     }
