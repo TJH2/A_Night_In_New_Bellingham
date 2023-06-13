@@ -302,7 +302,7 @@ let theLongJack =
 new Event(
    "<p>Furious, the mysterious stranger removes their paper bag!</p><br>" + 
    "<p>Maybe The Long Jack - \"<em>Curse you HD! You couldn't just break the I.C.E., could you?! You had to foil my plans yet again!</em>\"</p><br>" + 
-   "<p>Removing its face, you realize the myterious stranger isn't a stranger at all... it's your mortal enemy, and ancient enemy to all Bellinghamsters, The Long Jack! How you didn't realize the stranger was actually The Long Jack in disguise sooner is strange in itself... But you don't have time to think about it too hard...</p><br>" + 
+   "<p>Removing its face, you realize the mysterious stranger isn't a stranger at all... it's your mortal enemy, and ancient enemy to all Bellinghamsters, The Long Jack! How you didn't realize the stranger was actually The Long Jack in disguise sooner is strange in itself... But you don't have time to think about it too hard...</p><br>" + 
    "<p>The Long Jack lunges at you!</p><br>" +
    '<p><em>* See Inspiration For "The Long Jack" <a href="https://www.youtube.com/watch?v=b4PtiFAdRDw" target="_blank">Here</a></em></p>',
    "[Head Back The Way You Came And Stay On The Street]", // option 1
